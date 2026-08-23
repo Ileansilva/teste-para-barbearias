@@ -1,0 +1,24 @@
+PLANO PROFISSIONAL
+========================================================
+INCLUI:
+- site público profissional
+- Supabase
+- agendamento inteligente
+- painel administrativo
+- clientes / CRM
+- barbeiros e comissões
+- caixa
+- despesas / financeiro
+- fila e encaixe
+- fidelidade
+- galeria e configurações
+
+PARA NOVO CLIENTE:
+1) Crie novo projeto Supabase.
+2) Instale a estrutura SQL da pasta supabase.
+3) Crie o usuário do proprietário em Authentication.
+4) Edite js/config.js com URL + Publishable Key.
+5) Personalize logo, textos, serviços e barbeiros.
+
+Leia também ONDE-ALTERAR-TUDO.txt.
+========================================================

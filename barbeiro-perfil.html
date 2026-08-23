@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <!-- ===== CABEÇALHO / CONFIGURAÇÕES DA PÁGINA ===== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Perfil do barbeiro | Barbearia corte nobre</title>
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="css/barbeiro-perfil-v48.css">
+</head><!-- NOVA BARBEARIA: banco em js/config.js | dados em Painel > Configurações | imagens em assets/ -->
+
+<body class="admin-body admin-multipage" data-admin-page="barberProfile">
+  <!-- ===== INÍCIO DO CONTEÚDO VISÍVEL ===== -->
+  <div class="admin-ambient" aria-hidden="true"></div><!-- ===== LOGIN DO PROPRIETÁRIO ===== -->
+  <div id="loginOverlay" class="login-overlay">
+    <form id="loginForm" class="login-card"><img src="/assets2/ChatGPT Image 23 de ago. de 2026, 15_02_06 (2).png" alt="Logo Barbearia corte nobre">
+      <h1>Área do proprietário</h1>
+      <p>Acesse a administração da SUA BARBEARIA.</p>
+      <div class="field"><label>E-mail</label><input name="email" type="email" required></div>
+      <div class="field" style="margin-top:12px"><label>Senha</label><input name="password" type="password" required></div>
+      <div id="loginError" style="color:#ff9c9c;margin-top:9px"></div><button class="btn btn-primary" type="submit">Entrar</button>
+    </form>
+  </div><!-- ===== ESTRUTURA PRINCIPAL DO PAINEL ADMIN ===== -->
+  <div class="admin-wrap"><!-- ===== MENU LATERAL DO ADMINISTRADOR ===== -->
+    <aside class="sidebar"><a class="admin-sidebar-logo" href="admin.html"><img src="/assets2/ChatGPT Image 23 de ago. de 2026, 15_02_06 (2).png" alt="Barbearia corte nobre"></a>
+      <nav class="side-nav side-nav-links"><a class="side-link " href="admin.html"><span>⌂</span>Visão geral</a><a class="side-link " href="agendamentos-admin.html"><span>▣</span>Agendamentos</a><a class="side-link " href="clientes-admin.html"><span>♧</span>Clientes</a><a class="side-link " href="servicos-admin.html"><span>✂</span>Serviços</a><a class="side-link active" href="barbeiros-admin.html"><span>♙</span>Barbeiros</a><a class="side-link " href="financeiro-admin.html"><span>$</span>Financeiro</a><a class="side-link " href="caixa-admin.html"><span>▤</span>Caixa</a><a class="side-link " href="galeria-admin.html"><span>▧</span>Galeria</a><a class="side-link " href="configuracoes-admin.html"><span>⚙</span>Configurações</a></nav>
+      <div class="sidebar-bottom"><a class="side-link" href="index.html"><span>↗</span>Ver site</a><button id="logout" class="side-link side-button"><span>⇥</span>Sair</button></div>
+    </aside><!-- ===== CONTEÚDO PRINCIPAL ===== -->
+    <!-- ===== CONTEÚDO DA PÁGINA ADMINISTRATIVA ===== -->
+    <main class="admin-main">
+      <div class="admin-top">
+        <div class="admin-page-heading"><span class="eyebrow">Painel administrativo</span>
+          <h1>Perfil do barbeiro</h1>
+        </div>
+        <div class="admin-top-actions"><a class="btn btn-outline" href="index.html">Ver site</a></div>
+      </div>
+      <section id="barberProfile" class="panel active">
+        <div class="barber-profile-header card">
+          <button type="button" class="mini-btn barber-profile-back" onclick="backToBarbers()">← Voltar aos barbeiros</button>
+          <div class="barber-profile-identity">
+            <div id="profileBarberPhoto" class="profile-barber-photo"><span>✂</span></div>
+            <div>
+              <span class="eyebrow">Perfil do profissional</span>
+              <h2 id="profileBarberName">Barbeiro</h2>
+              <p id="profileBarberCommission" class="muted">Comissão: 0%</p>
+            </div>
+          </div>
+          <div class="barber-profile-date">
+            <label for="profileDate">Escolha uma data</label>
+            <input id="profileDate" type="date" aria-label="Data do perfil">
+            <button id="profileTodayBtn" type="button" class="btn btn-outline">Hoje</button>
+          </div>
+        </div>
+
+        <div class="profile-kpis">
+          <article class="kpi"><span>Cortes na data</span><strong id="profileCuts">0</strong></article>
+          <article class="kpi"><span>Faturamento do barbeiro</span><strong id="profileGross">R$ 0,00</strong></article>
+          <article class="kpi"><span>Comissão a receber</span><strong id="profileCommission">R$ 0,00</strong></article>
+          <article class="kpi"><span>Líquido da barbearia</span><strong id="profileNet">R$ 0,00</strong></article>
+        </div>
+
+        <!-- ===== PAGAMENTOS GERADOS PELO BARBEIRO NA DATA ===== -->
+        <div class="profile-payment-summary">
+          <article class="payment-summary-card pix"><span>Pix na data</span><strong id="profileDayPix">R$ 0,00</strong><small id="profileDayPixCuts">0 cortes</small></article>
+          <article class="payment-summary-card card"><span>Cartão na data</span><strong id="profileDayCartao">R$ 0,00</strong><small id="profileDayCartaoCuts">0 cortes</small></article>
+          <article class="payment-summary-card cash"><span>Dinheiro na data</span><strong id="profileDayDinheiro">R$ 0,00</strong><small id="profileDayDinheiroCuts">0 cortes</small></article>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <h2 id="profileDayTitle">Cortes do dia</h2>
+              <p class="muted">Somente cortes marcados como concluídos entram neste relatório.</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Horário</th>
+                  <th>Cliente</th>
+                  <th>Serviço</th>
+                  <th>Pagamento</th>
+                  <th>Valor</th>
+                  <th>%</th>
+                  <th>Comissão</th>
+                  <th>Casa</th>
+                </tr>
+              </thead>
+              <tbody id="profileDayRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+
+        <!-- ===== HISTÓRICO COMPLETO DE CLIENTES ATENDIDOS V36 ===== -->
+        <div class="card barber-client-history-card">
+          <div class="card-head barber-history-head">
+            <div>
+              <span class="eyebrow">Histórico de atendimentos</span>
+              <h2>Clientes atendidos por este barbeiro</h2>
+              <p class="muted">Consulte todos os atendimentos concluídos por dia, mês, ano ou período personalizado.</p>
+            </div>
+          </div>
+
+          <div class="barber-history-filters">
+            <div class="field">
+              <label>Consultar por</label>
+              <select id="profileHistoryMode">
+                <option value="day">Dia</option>
+                <option value="month" selected>Mês</option>
+                <option value="year">Ano</option>
+                <option value="custom">Período personalizado</option>
+              </select>
+            </div>
+
+            <div id="profileHistoryDayField" class="field" hidden>
+              <label>Dia</label>
+              <input id="profileHistoryDay" type="date">
+            </div>
+
+            <div id="profileHistoryMonthField" class="field">
+              <label>Mês</label>
+              <input id="profileHistoryMonth" type="month">
+            </div>
+
+            <div id="profileHistoryYearField" class="field" hidden>
+              <label>Ano</label>
+              <select id="profileHistoryYear"></select>
+            </div>
+
+            <div id="profileHistoryCustomFields" class="barber-history-custom" hidden>
+              <div class="field">
+                <label>De</label>
+                <input id="profileHistoryFrom" type="date">
+              </div>
+              <div class="field">
+                <label>Até</label>
+                <input id="profileHistoryTo" type="date">
+              </div>
+            </div>
+          </div>
+
+          <div class="barber-history-kpis">
+            <article>
+              <span>Atendimentos</span>
+              <strong id="profileHistoryAttendances">0</strong>
+              <small>cortes/serviços concluídos</small>
+            </article>
+            <article>
+              <span>Clientes únicos</span>
+              <strong id="profileHistoryUniqueClients">0</strong>
+              <small>sem contar repetidos</small>
+            </article>
+            <article>
+              <span>Faturamento</span>
+              <strong id="profileHistoryGross">R$ 0,00</strong>
+              <small>valor atendido</small>
+            </article>
+            <article>
+              <span>Comissão</span>
+              <strong id="profileHistoryCommission">R$ 0,00</strong>
+              <small>comissão do barbeiro</small>
+            </article>
+          </div>
+
+          <div id="profileHistoryLabel" class="barber-history-label"></div>
+
+          <div class="table-wrap">
+            <table class="table barber-history-table">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Horário</th>
+                  <th>Cliente</th>
+                  <th>WhatsApp</th>
+                  <th>Serviço</th>
+                  <th>Pagamento</th>
+                  <th>Valor</th>
+                  <th>Comissão</th>
+                </tr>
+              </thead>
+              <tbody id="profileHistoryRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="barber-profile-periods">
+          <div class="card">
+            <h3>Resumo do mês</h3>
+            <div class="profile-summary-grid">
+              <div><span>Cortes</span><b id="profileMonthCuts">0</b></div>
+              <div><span>Faturado</span><b id="profileMonthGross">R$ 0,00</b></div>
+              <div><span>Comissão</span><b id="profileMonthCommission">R$ 0,00</b></div>
+            </div>
+            <div class="profile-period-payments">
+              <span>Pix <b id="profileMonthPix">R$ 0,00</b></span>
+              <span>Cartão <b id="profileMonthCartao">R$ 0,00</b></span>
+              <span>Dinheiro <b id="profileMonthDinheiro">R$ 0,00</b></span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Resumo do ano</h3>
+            <div class="profile-summary-grid">
+              <div><span>Cortes</span><b id="profileYearCuts">0</b></div>
+              <div><span>Faturado</span><b id="profileYearGross">R$ 0,00</b></div>
+              <div><span>Comissão</span><b id="profileYearCommission">R$ 0,00</b></div>
+            </div>
+            <div class="profile-period-payments">
+              <span>Pix <b id="profileYearPix">R$ 0,00</b></span>
+              <span>Cartão <b id="profileYearCartao">R$ 0,00</b></span>
+              <span>Dinheiro <b id="profileYearDinheiro">R$ 0,00</b></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div><!-- ===== SCRIPTS / FUNCIONALIDADES ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/branding-v48.js"></script>
+  <script src="js/admin.js?v=39"></script>
+</body>
+
+</html>

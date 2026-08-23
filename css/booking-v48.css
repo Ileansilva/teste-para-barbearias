@@ -1,0 +1,1095 @@
+/*
+==========================================================
+MODELO DE BARBEARIA - ARQUIVO DE ESTILO: style.css
+==========================================================
+Este arquivo controla parte do visual do sistema.
+
+DICA PARA REVENDA:
+- cores principais: procure por #d6a84f / #f0c85a / dourado
+- fundos: procure por #070809 / #0b0d0f / preto
+- bordas e sombras: rgba(...)
+- tamanhos e responsividade: /* ===== RESPONSIVIDADE / CELULAR / TABLET ===== */
+/*
+@media
+
+Evite apagar classes sem verificar onde são usadas.
+==========================================================
+*/
+
+
+:root{--bg:#090909;--panel:#111112;--panel2:#171617;--text:#f5efe6;--muted:#aaa39a;--gold:#d0a255;--gold2:#f2cf86;--line:rgba(226,188,117,.18);--danger:#e25555;--success:#54b67a;--shadow:0 28px 80px rgba(0,0,0,.38);--radius:22px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 10% 5%,rgba(191,139,55,.10),transparent 24rem),radial-gradient(circle at 90% 18%,rgba(255,255,255,.035),transparent 22rem),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}img{display:block;max-width:100%}.container{width:min(1180px,calc(100% - 36px));margin:auto}.muted{color:var(--muted)}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--gold2);font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.eyebrow:before{content:"";width:28px;height:1px;background:var(--gold)}.title{font-size:clamp(2.1rem,5vw,4.5rem);line-height:.96;letter-spacing:-.05em;margin:.6rem 0 1rem}.subtitle{font-size:clamp(1rem,2vw,1.15rem);line-height:1.75;color:var(--muted)}
+.header{position:sticky;top:0;z-index:30;background:rgba(9,9,9,.78);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:22px}.brand{display:flex;align-items:center}.brand img{width:92px;height:92px;object-fit:contain;filter:drop-shadow(0 12px 30px rgba(0,0,0,.35))}.navlinks{display:flex;gap:24px;align-items:center;color:#d9d1c7;font-size:.95rem}.navlinks a:hover{color:var(--gold2)}.mobile-toggle{display:none;background:transparent;border:0;color:var(--text);font-size:1.6rem}
+.btn{border:1px solid transparent;border-radius:999px;padding:13px 20px;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:800;cursor:pointer;transition:.25s transform,.25s background,.25s border-color}.btn:hover{transform:translateY(-2px)}.btn-primary{background:linear-gradient(135deg,var(--gold2),#b57f31);color:#17100a;box-shadow:0 12px 35px rgba(197,145,63,.22)}.btn-outline{border-color:rgba(230,196,134,.35);background:rgba(255,255,255,.02);color:var(--text)}.btn-danger{background:rgba(226,85,85,.12);border-color:rgba(226,85,85,.28);color:#ff9c9c}
+.hero{min-height:calc(100svh - 78px);display:grid;align-items:center;position:relative;overflow:hidden}.hero:after{content:"JK";position:absolute;right:-4vw;bottom:-8vw;font-size:38vw;font-weight:1000;letter-spacing:-.12em;color:rgba(255,255,255,.018);pointer-events:none}.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:80px 0}.hero-copy{position:relative;z-index:2}.hero-copy h1{font-size:clamp(3rem,7vw,7rem);line-height:.86;margin:18px 0;letter-spacing:-.07em}.hero-copy h1 span{display:block;color:transparent;-webkit-text-stroke:1px var(--gold2)}.hero-copy p{max-width:650px;font-size:1.1rem;line-height:1.75;color:var(--muted)}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.hero-card{position:relative;min-height:540px;border:1px solid var(--line);border-radius:36px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01)),radial-gradient(circle at 50% 24%,rgba(208,162,85,.25),transparent 35%),#101011;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;overflow:hidden}.hero-card:before,.hero-card:after{content:"";position:absolute;border:1px solid rgba(225,185,111,.16);border-radius:50%}.hero-card:before{width:390px;height:390px}.hero-card:after{width:285px;height:285px}.hero-logo{width:min(78%,370px);position:relative;z-index:1;border-radius:50%;filter:drop-shadow(0 30px 60px rgba(0,0,0,.5));transition:.5s transform}.hero-card:hover .hero-logo{transform:scale(1.035)}.badge{position:absolute;background:rgba(13,13,14,.82);border:1px solid var(--line);backdrop-filter:blur(15px);padding:14px 16px;border-radius:16px;z-index:2;box-shadow:var(--shadow)}.badge.top{top:30px;right:24px}.badge.bottom{bottom:30px;left:24px}.badge strong{display:block}.badge span{font-size:.8rem;color:var(--muted)}
+.stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}.stat{padding:27px 20px;text-align:center;border-right:1px solid var(--line)}.stat:last-child{border-right:0}.stat strong{font-size:1.55rem}.stat span{display:block;color:var(--muted);font-size:.82rem;margin-top:5px}
+.section{padding:105px 0}.section-head{max-width:760px;margin-bottom:42px}/* ===== SERVIÇOS ===== */
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.service-card{background:linear-gradient(180deg,#161515,#0f0f10);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.3s transform,.3s border-color;min-width:0}.service-card:hover{transform:translateY(-7px);border-color:rgba(230,196,134,.45)}.service-image{aspect-ratio:16/11;object-fit:cover;background:#111;width:100%}.service-body{padding:20px}.service-body h3{margin:0 0 8px}.service-body p{margin:0 0 20px;color:var(--muted);font-size:.9rem;line-height:1.5}.price-row{display:flex;justify-content:space-between;align-items:center;gap:12px}.price{font-size:1.25rem;font-weight:900;color:var(--gold2)}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:26px}.about-card{border:1px solid var(--line);border-radius:28px;padding:35px;background:linear-gradient(160deg,rgba(208,162,85,.08),rgba(255,255,255,.015))}.about-card.big{min-height:400px;display:flex;flex-direction:column;justify-content:flex-end;background:radial-gradient(circle at 80% 10%,rgba(208,162,85,.18),transparent 35%),#111}.about-card h3{font-size:2rem;margin:0 0 10px}.about-list{display:grid;gap:12px;margin-top:24px}.check{display:flex;gap:12px;align-items:flex-start;color:#ddd4ca}.check i{font-style:normal;color:var(--gold2)}
+.cta{border:1px solid var(--line);border-radius:34px;padding:54px;background:radial-gradient(circle at 85% 0%,rgba(228,181,95,.22),transparent 36%),linear-gradient(120deg,#171413,#0e0e0f);display:flex;justify-content:space-between;align-items:center;gap:32px}.cta h2{font-size:clamp(2rem,4vw,4rem);line-height:1;margin:0 0 14px;letter-spacing:-.05em}.footer{padding:42px 0;border-top:1px solid var(--line);color:var(--muted)}.footer-grid{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer img{width:180px}
+.form-shell{display:grid;grid-template-columns:.78fr 1.22fr;gap:28px;align-items:start;padding:70px 0 100px}.form-card{border:1px solid var(--line);border-radius:28px;background:#111;padding:28px;box-shadow:var(--shadow)}/* ===== PÁGINA DE AGENDAMENTO ===== */
+.booking-logo{width:132px;height:132px;object-fit:contain;margin:0 0 18px;border-radius:50%;filter:drop-shadow(0 14px 28px rgba(0,0,0,.35))}.form-card.sticky{position:sticky;top:105px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:grid;gap:8px}.field.full{grid-column:1/-1}.field label{font-size:.84rem;color:#d7cec4;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid rgba(255,255,255,.1);background:#0a0a0b;color:var(--text);padding:14px 15px;border-radius:13px;outline:0}.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(228,181,95,.7);box-shadow:0 0 0 3px rgba(228,181,95,.08)}.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.time-btn{border:1px solid rgba(255,255,255,.1);background:#0b0b0c;color:var(--text);padding:12px;border-radius:12px;cursor:pointer}.time-btn:hover,.time-btn.active{border-color:var(--gold);background:rgba(208,162,85,.12);color:var(--gold2)}.time-btn:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}.notice{padding:14px 16px;border-radius:13px;background:rgba(208,162,85,.08);border:1px solid var(--line);color:#d8c9b6;font-size:.88rem;line-height:1.5}.toast{position:fixed;right:20px;bottom:20px;z-index:70;max-width:360px;padding:15px 18px;border-radius:14px;background:#171717;border:1px solid var(--line);box-shadow:var(--shadow);transform:translateY(140%);opacity:0;transition:.35s}.toast.show{transform:translateY(0);opacity:1}.toast.success{border-color:rgba(84,182,122,.4)}.toast.error{border-color:rgba(226,85,85,.4)}.empty{padding:34px;text-align:center;color:var(--muted);border:1px dashed rgba(255,255,255,.14);border-radius:16px}.loading{opacity:.65;pointer-events:none}
+@media(max-width:950px){/* ===== GALERIA ===== */
+.gallery-grid{grid-template-columns:repeat(2,1fr)}.navlinks{position:absolute;left:18px;right:18px;top:82px;display:none;flex-direction:column;align-items:stretch;padding:18px;border:1px solid var(--line);border-radius:18px;background:#101011}.navlinks.open{display:flex}.mobile-toggle{display:block}.hero-grid,.about,.form-shell{grid-template-columns:1fr}.hero-card{min-height:420px}.services{grid-template-columns:repeat(2,1fr)}.form-card.sticky{position:static}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.gallery-grid{grid-template-columns:1fr;gap:14px}.gallery-card{aspect-ratio:5/4}.booking-logo{width:108px;height:108px}.container{width:min(100% - 24px,1180px)}.brand img{width:72px;height:72px}.nav{height:68px}.hero{min-height:auto}.hero-grid{padding:54px 0;gap:34px}.hero-card{min-height:330px}.hero-logo{width:min(82%,265px)}.services{grid-template-columns:1fr}.section{padding:72px 0}.cta{padding:32px 24px;display:block}.cta .btn{margin-top:18px;width:100%}.form-grid{grid-template-columns:1fr}.time-grid{grid-template-columns:repeat(3,1fr)}}
+
+.gallery-section{background:linear-gradient(180deg,transparent,rgba(208,162,85,.035),transparent)}.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.gallery-card{position:relative;padding:0;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#111;cursor:pointer;aspect-ratio:4/5;text-align:left;box-shadow:0 16px 38px rgba(0,0,0,.2)}.gallery-card img{width:100%;height:100%;object-fit:cover;transition:.45s transform,.45s filter}.gallery-card:hover img{transform:scale(1.055);filter:brightness(.72)}.gallery-overlay{position:absolute;inset:auto 0 0;padding:48px 20px 18px;background:linear-gradient(transparent,rgba(0,0,0,.9));display:grid;gap:4px;color:#fff;transform:translateY(8px);transition:.3s transform}.gallery-card:hover .gallery-overlay{transform:none}.gallery-overlay strong{font-size:1.02rem}.gallery-overlay small{color:#d7d0c6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gallery-overlay em{font-style:normal;color:var(--gold2);font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-top:5px}.gallery-lightbox{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:28px}.gallery-lightbox.open{display:flex}.lightbox-content{width:min(900px,100%);max-height:90vh;display:grid;justify-items:center}.lightbox-content img{max-width:100%;max-height:76vh;object-fit:contain;border-radius:18px;box-shadow:0 28px 100px rgba(0,0,0,.6)}.lightbox-meta{text-align:center;display:grid;gap:6px;margin-top:16px}.lightbox-meta strong{font-size:1.25rem}.lightbox-meta span{color:var(--muted)}.lightbox-close{position:fixed;top:18px;right:22px;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(20,20,20,.75);color:#fff;font-size:2rem;cursor:pointer}.footer img{width:92px;height:92px;object-fit:contain;border-radius:50%}
+
+.booking-barber-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.booking-barber-card{border:1px solid rgba(255,255,255,.1);background:#0b0b0c;color:var(--text);padding:15px 10px;border-radius:16px;cursor:pointer;display:grid;justify-items:center;gap:8px;transition:.2s transform,.2s border-color,.2s background}
+.booking-barber-card:hover,.booking-barber-card.active{transform:translateY(-2px);border-color:var(--gold);background:rgba(208,162,85,.08)}
+.booking-barber-card img,.booking-barber-placeholder{width:78px;height:78px;border-radius:50%;object-fit:cover;border:2px solid rgba(208,162,85,.7);display:grid;place-items:center;background:#171717;font-size:1.4rem}
+.booking-barber-card strong{font-size:.92rem}
+.booking-barber-card small{color:var(--muted)}
+.booking-barber-card.active small{color:var(--gold2);font-weight:700}
+/* ===== BARBEIROS ===== */
+.barber-select-fallback{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+@media(max-width:620px){.booking-barber-cards{grid-template-columns:repeat(2,1fr)}.booking-barber-card img,.booking-barber-placeholder{width:68px;height:68px}}
+
+
+/*
+==========================================================
+MODELO DE BARBEARIA - ARQUIVO DE ESTILO: premium-v2.css
+==========================================================
+Este arquivo controla parte do visual do sistema.
+
+DICA PARA REVENDA:
+- cores principais: procure por #d6a84f / #f0c85a / dourado
+- fundos: procure por #070809 / #0b0d0f / preto
+- bordas e sombras: rgba(...)
+- tamanhos e responsividade: /* ===== RESPONSIVIDADE / CELULAR / TABLET ===== */
+@media
+
+Evite apagar classes sem verificar onde são usadas.
+==========================================================
+*/
+
+
+:root{
+  --jk-bg:#070809;
+  --jk-surface:#0d0f11;
+  --jk-surface2:#121519;
+  --jk-gold:#d6a84f;
+  --jk-gold2:#f4d88a;
+  --jk-text:#f7f4ef;
+  --jk-muted:#9ca1a8;
+  --jk-line:rgba(244,216,138,.14);
+  --jk-glass:rgba(17,19,22,.72);
+  --jk-glow:0 0 70px rgba(214,168,79,.12);
+}
+body.public-page,body/* ===== PÁGINA DE AGENDAMENTO ===== */
+.booking-page{
+  background:
+    radial-gradient(circle at 10% 0%,rgba(214,168,79,.09),transparent 28rem),
+    radial-gradient(circle at 88% 20%,rgba(84,112,255,.045),transparent 24rem),
+    linear-gradient(180deg,#08090a,#050607 75%);
+  min-height:100vh;
+}
+.site-ambient{position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden}
+.site-ambient i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.12;animation:ambientFloat 16s ease-in-out infinite alternate}
+.site-ambient i:nth-child(1){width:320px;height:320px;background:#d6a84f;left:-100px;top:12%}
+.site-ambient i:nth-child(2){width:260px;height:260px;background:#516cff;right:-80px;top:40%;animation-delay:-5s}
+.site-ambient i:nth-child(3){width:220px;height:220px;background:#d6a84f;left:45%;bottom:-100px;animation-delay:-9s}
+@keyframes ambientFloat{to{transform:translate3d(30px,-25px,0) scale(1.1)}}
+.header{
+  background:rgba(7,8,9,.68)!important;
+  border-bottom:1px solid rgba(255,255,255,.055)!important;
+  box-shadow:0 10px 40px rgba(0,0,0,.18);
+}
+.nav{height:82px!important}
+.brand img{width:72px!important;height:72px!important;filter:drop-shadow(0 10px 28px rgba(214,168,79,.18))!important}
+.navlinks{gap:8px!important}
+.navlinks>a:not(.btn){padding:10px 13px;border-radius:12px;transition:.2s ease}
+.navlinks>a:not(.btn):hover{background:rgba(255,255,255,.035);color:var(--jk-gold2)!important}
+.btn{transition:.25s ease!important}
+.btn-primary{
+  background:linear-gradient(135deg,#f5dc91 0%,#d6a84f 55%,#a87327 100%)!important;
+  box-shadow:0 14px 34px rgba(214,168,79,.18),inset 0 1px rgba(255,255,255,.35)!important;
+}
+.btn-shine{position:relative;overflow:hidden}
+.btn-shine:after{content:"";position:absolute;inset:-50% auto -50% -30%;width:25%;background:rgba(255,255,255,.45);transform:skewX(-18deg);animation:buttonShine 4.5s ease-in-out infinite}
+@keyframes buttonShine{0%,70%{left:-35%}100%{left:130%}}
+.hero{min-height:calc(100svh - 82px)!important}
+.hero-grid{grid-template-columns:1.02fr .98fr!important;gap:64px!important}
+.hero-copy h1{font-size:clamp(3.2rem,7vw,6.8rem)!important;letter-spacing:-.065em!important;text-wrap:balance}
+.hero-copy p{max-width:610px!important}
+.hero-live-pill,.booking-secure{
+  display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+  padding:8px 11px;border:1px solid rgba(84,182,122,.22);border-radius:999px;
+  background:rgba(84,182,122,.055);font-size:.76rem;color:#b9d9c5
+}
+.hero-live-pill b{width:7px;height:7px;border-radius:50%;background:#54b67a;box-shadow:0 0 0 5px rgba(84,182,122,.1);animation:livePulse 1.8s ease infinite}
+@keyframes livePulse{50%{box-shadow:0 0 0 9px rgba(84,182,122,0)}}
+.hero-trust{display:flex;gap:14px 20px;flex-wrap:wrap;margin-top:24px;color:#9ea3a9;font-size:.8rem}
+.hero-card{
+  border-radius:32px!important;
+  border:1px solid rgba(244,216,138,.14)!important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.035),transparent 50%),
+    radial-gradient(circle at 50% 46%,rgba(214,168,79,.16),transparent 44%),
+    #0c0e10!important;
+  box-shadow:0 40px 100px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.045)!important;
+}
+.hero-card:before{animation:ringSpin 18s linear infinite}
+.hero-card:after{animation:ringSpin 12s linear infinite reverse}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+.hero-logo{width:min(72%,350px)!important}
+.badge{background:rgba(8,9,10,.74)!important;border-color:rgba(244,216,138,.13)!important;box-shadow:0 18px 45px rgba(0,0,0,.28)!important}
+.premium-stats{background:rgba(255,255,255,.012);border-color:rgba(255,255,255,.055)!important}
+.premium-stats .stat{position:relative;padding:24px 16px!important;border-color:rgba(255,255,255,.055)!important}
+.premium-stats .stat strong{font-size:.78rem!important;color:var(--jk-gold2);letter-spacing:.12em}
+.premium-stats .stat span{font-size:.88rem!important}
+.section{padding:96px 0!important}
+.section-head{max-width:720px!important}
+.title{font-size:clamp(2.25rem,4.7vw,4.4rem)!important}
+/* ===== SERVIÇOS ===== */
+.services{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important}
+.service-card{
+  position:relative;
+  border-radius:24px!important;
+  border:1px solid rgba(255,255,255,.075)!important;
+  background:linear-gradient(180deg,rgba(18,21,25,.96),rgba(10,12,14,.98))!important;
+  box-shadow:0 18px 50px rgba(0,0,0,.22)!important;
+  overflow:hidden;
+  transform:translateY(18px);
+  opacity:0;
+  transition:opacity .6s ease,transform .6s ease,border-color .3s ease,box-shadow .3s ease!important;
+}
+.service-card.revealed{transform:none;opacity:1}
+.service-card:hover{transform:translateY(-6px)!important;border-color:rgba(214,168,79,.38)!important;box-shadow:0 28px 70px rgba(0,0,0,.32),0 0 0 1px rgba(214,168,79,.08)!important}
+.service-media{position:relative;height:205px;overflow:hidden;background:#0b0c0d}
+.service-media .service-image{width:100%!important;height:100%!important;aspect-ratio:auto!important;object-fit:cover!important;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .4s ease}
+.service-card:hover .service-image{transform:scale(1.045);filter:saturate(1.05) contrast(1.02)}
+.service-duration{position:absolute;top:13px;right:13px;padding:7px 9px;border-radius:999px;background:rgba(7,8,9,.78);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);font-size:.72rem;font-weight:800}
+.service-media-glow{position:absolute;inset:auto 0 0;height:45%;background:linear-gradient(transparent,rgba(7,8,9,.72));pointer-events:none}
+.service-body{padding:18px!important}
+.service-title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.service-title-row h3{font-size:1.05rem;margin:0!important}
+.service-title-row .price{white-space:nowrap;font-size:1.03rem!important}
+.service-body p{min-height:42px;margin:10px 0 14px!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.service-book-link{display:flex;align-items:center;justify-content:space-between;padding-top:13px;border-top:1px solid rgba(255,255,255,.065);font-size:.82rem;font-weight:800;color:#d9d4cb}
+.service-book-link b{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:rgba(214,168,79,.09);color:var(--jk-gold2);transition:.25s ease}
+.service-book-link:hover b{transform:translateX(3px);background:rgba(214,168,79,.18)}
+/* ===== GALERIA ===== */
+.gallery-section{background:linear-gradient(180deg,transparent,rgba(214,168,79,.025),transparent)!important}
+.gallery-card{border-color:rgba(255,255,255,.07)!important;box-shadow:0 20px 55px rgba(0,0,0,.2)!important}
+.about-card,.cta{border-color:rgba(255,255,255,.07)!important;background-color:#0d0f11!important}
+.cta{box-shadow:0 24px 70px rgba(0,0,0,.25)}
+.footer{border-color:rgba(255,255,255,.06)!important}
+.form-shell{gap:22px!important}
+.form-card{
+  border:1px solid rgba(255,255,255,.075)!important;
+  background:rgba(13,15,17,.88)!important;
+  backdrop-filter:blur(18px);
+  border-radius:24px!important;
+  box-shadow:0 28px 80px rgba(0,0,0,.26)!important;
+}
+.booking-title{font-size:clamp(2.1rem,4vw,3rem);line-height:1;margin:13px 0!important}
+.field input,.field select,.field textarea{
+  background:#090b0c!important;
+  border-color:rgba(255,255,255,.085)!important;
+  transition:border-color .2s ease,box-shadow .2s ease,background .2s ease
+}
+.field input:focus,.field select:focus,.field textarea:focus{background:#0b0d0f!important;border-color:rgba(214,168,79,.65)!important}
+.booking-barber-card{background:#0a0c0e!important;border-color:rgba(255,255,255,.08)!important}
+.booking-barber-card.active{box-shadow:0 0 0 1px rgba(214,168,79,.3),0 12px 30px rgba(0,0,0,.25)}
+@media(max-width:980px){
+  .services{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .hero-grid{gap:38px!important}
+}
+@media(max-width:620px){
+  .nav{height:70px!important}
+  .brand img{width:58px!important;height:58px!important}
+  .hero-grid{padding:46px 0!important}
+  .hero-copy h1{font-size:clamp(2.8rem,15vw,4.4rem)!important}
+  .hero-trust{display:grid;gap:8px}
+  .services{grid-template-columns:1fr!important}
+  .service-media{height:190px}
+  .section{padding:68px 0!important}
+}
+
+/* Calendário público V3 */
+.booking-page .flatpickr-calendar{background:#101214!important;border:1px solid rgba(214,168,79,.18)!important;box-shadow:0 24px 70px rgba(0,0,0,.42)!important;border-radius:16px!important}
+.booking-page .flatpickr-months,.booking-page .flatpickr-weekdays{background:#0d0f11!important}
+.booking-page .flatpickr-month,.booking-page .flatpickr-current-month,.booking-page .flatpickr-weekday{color:#eee8df!important;fill:#eee8df!important}
+.booking-page .flatpickr-day{color:#d3d6da!important;border-radius:9px!important}
+.booking-page .flatpickr-day.selected{background:linear-gradient(135deg,#f1d68c,#c2913e)!important;border-color:#d6a84f!important;color:#17100a!important;font-weight:900}
+.booking-page .flatpickr-day.today{border-color:#d6a84f!important}
+
+
+/*
+==========================================================
+MODELO DE BARBEARIA - ARQUIVO DE ESTILO: booking-v9.css
+==========================================================
+Este arquivo controla parte do visual do sistema.
+
+DICA PARA REVENDA:
+- cores principais: procure por #d6a84f / #f0c85a / dourado
+- fundos: procure por #070809 / #0b0d0f / preto
+- bordas e sombras: rgba(...)
+- tamanhos e responsividade: /* ===== RESPONSIVIDADE / CELULAR / TABLET ===== */
+@media
+
+Evite apagar classes sem verificar onde são usadas.
+==========================================================
+*/
+
+
+/* SUA BARBEARIA — Agendamento V9 */
+/* ===== PÁGINA DE AGENDAMENTO ===== */
+.booking-date-shell{display:grid;gap:7px}
+.booking-date-shell input[type="date"]{
+  width:100%;
+  min-height:52px;
+  border:1px solid rgba(214,168,79,.28)!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025))!important;
+  color:#f7f1e4!important;
+  border-radius:13px!important;
+  padding:0 14px!important;
+  font-size:1rem;
+  font-weight:750;
+  color-scheme:dark;
+}
+.booking-date-shell input[type="date"]:focus{
+  border-color:rgba(240,200,90,.82)!important;
+  box-shadow:0 0 0 3px rgba(214,168,79,.13)!important;
+}
+.booking-date-shell input[type="date"]::-webkit-calendar-picker-indicator{
+  opacity:1;
+  cursor:pointer;
+  padding:7px;
+  border-radius:8px;
+  background-color:rgba(214,168,79,.10);
+  filter:invert(88%) sepia(19%) saturate(1105%) hue-rotate(352deg) brightness(101%) contrast(93%);
+}
+.booking-date-hint{font-size:.72rem;color:#8e959d}
+.booking-barber-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.booking-barber-card{
+  position:relative;
+  display:grid!important;
+  grid-template-columns:56px minmax(0,1fr) 28px;
+  align-items:center;
+  gap:11px;
+  min-height:78px;
+  padding:10px 12px!important;
+  text-align:left!important;
+}
+.booking-barber-card img,.booking-barber-placeholder{
+  width:56px!important;height:56px!important;min-width:56px!important;
+  border-radius:50%!important;object-fit:cover!important;
+}
+.booking-barber-info{display:grid;min-width:0;gap:4px}
+.booking-barber-info strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.booking-barber-info small{color:#9299a1;font-size:.72rem}
+.booking-barber-check{
+  width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  opacity:.25;border:1px solid rgba(255,255,255,.12);transition:.2s ease
+}
+.booking-barber-card.active .booking-barber-check{
+  opacity:1;background:#d6a84f;color:#17100a;border-color:#d6a84f;font-weight:900
+}
+.booking-loading{color:#d7c38e!important}
+.booking-error{color:#ffaaaa!important;border-color:rgba(226,85,85,.18)!important}
+.time-btn{min-height:46px!important}
+.time-btn.active{
+  background:linear-gradient(135deg,#f1d68c,#c2913e)!important;
+  color:#17100a!important;
+  border-color:#d6a84f!important;
+  box-shadow:0 9px 24px rgba(214,168,79,.16)
+}
+@media(max-width:620px){
+  .booking-barber-cards{grid-template-columns:1fr}
+  .booking-barber-info strong{white-space:normal}
+}
+
+.booking-settings-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:16px 0}
+.booking-settings-info>div{display:grid;gap:4px;padding:10px 11px;border-radius:12px;border:1px solid rgba(255,255,255,.065);background:rgba(255,255,255,.025)}
+.booking-settings-info span{font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;color:#808891;font-weight:800}
+.booking-settings-info strong{font-size:.78rem;color:#eee9df}
+.booking-client-notice{margin:12px 0;padding:12px 13px;border-radius:12px;border:1px solid rgba(214,168,79,.18);background:rgba(214,168,79,.055);color:#d9cfb7;font-size:.79rem;line-height:1.5}
+.booking-closed-box{display:grid;gap:5px;margin:14px 0;padding:14px;border-radius:13px;border:1px solid rgba(226,85,85,.18);background:rgba(226,85,85,.055);color:#f0b8b8}
+.booking-closed-box span{font-size:.75rem;color:#bd9b9b}
+@media(max-width:520px){.booking-settings-info{grid-template-columns:1fr}}
+
+
+/* ===== STATUS AUTOMÁTICO DO HORÁRIO DE FUNCIONAMENTO V21 ===== */
+/* O atributo hidden precisa sempre vencer o display:grid da caixa fechada. */
+.booking-closed-box[hidden],
+.booking-client-notice[hidden]{
+  display:none!important;
+}
+.booking-closed-box:not([hidden]){
+  display:grid!important;
+}
+#bookingForm input:disabled,
+#bookingForm select:disabled,
+#bookingForm textarea:disabled,
+#bookingForm button:disabled{
+  opacity:.5;
+  cursor:not-allowed!important;
+}
+
+
+/*
+==========================================================
+MODELO DE BARBEARIA - FORMAS DE PAGAMENTO V14
+==========================================================
+Controla a aparência de Pix, Cartão e Dinheiro no:
+- agendamento do cliente;
+- agendamentos do proprietário;
+- financeiro;
+- perfil individual dos barbeiros.
+==========================================================
+*/
+
+/* ===== ESCOLHA DO CLIENTE ===== */
+.payment-method-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.payment-method-card{position:relative;display:grid;grid-template-columns:42px minmax(0,1fr) 24px;align-items:center;gap:10px;min-height:76px;padding:12px;border:1px solid rgba(255,255,255,.075);border-radius:14px;background:rgba(255,255,255,.025);cursor:pointer;transition:.2s ease}
+.payment-method-card input{position:absolute;opacity:0;pointer-events:none}
+.payment-method-card>span:nth-of-type(2){display:grid;gap:3px;min-width:0}
+.payment-method-card strong{font-size:.86rem}
+.payment-method-card small{font-size:.65rem;color:#858d95}
+.payment-method-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;border:1px solid rgba(214,168,79,.13);background:rgba(214,168,79,.05);color:#d9bd74;font-weight:900}
+.payment-method-card i{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,.10);color:transparent;font-style:normal}
+.payment-method-card:has(input:checked){border-color:rgba(214,168,79,.48);background:linear-gradient(180deg,rgba(214,168,79,.10),rgba(214,168,79,.025));box-shadow:inset 0 0 0 1px rgba(214,168,79,.05)}
+.payment-method-card:has(input:checked) i{background:#d6a84f;color:#15100a;border-color:#d6a84f;font-weight:950}
+.payment-method-help{display:block;margin-top:8px;color:#7e868e;font-size:.68rem}
+
+/* ===== BADGES E EDIÇÃO NO ADMIN ===== */
+.payment-badge{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;font-size:.67rem;font-weight:850;border:1px solid rgba(255,255,255,.08);white-space:nowrap}
+.payment-badge.pix{color:#84dbc8;background:rgba(58,185,157,.08);border-color:rgba(58,185,157,.18)}
+.payment-badge.cartao{color:#a9c8ff;background:rgba(75,126,215,.08);border-color:rgba(75,126,215,.18)}
+.payment-badge.dinheiro{color:#d8c98c;background:rgba(190,163,75,.08);border-color:rgba(190,163,75,.18)}
+.payment-admin-select{min-width:110px;padding:7px 9px;border-radius:9px;border:1px solid rgba(255,255,255,.09);background:#0d1012;color:#e9e5dd;font-weight:750;color-scheme:dark}
+.payment-admin-select.pix{border-color:rgba(58,185,157,.25)}
+.payment-admin-select.cartao{border-color:rgba(75,126,215,.25)}
+.payment-admin-select.dinheiro{border-color:rgba(190,163,75,.25)}
+
+/* ===== RESUMO FINANCEIRO POR PAGAMENTO ===== */
+.finance-payment-summary,.profile-payment-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.payment-summary-card{display:grid;gap:5px;padding:14px;border:1px solid rgba(255,255,255,.07);border-radius:14px;background:linear-gradient(180deg,#111416,#0c0e10);min-width:0}
+.payment-summary-card span{font-size:.67rem;text-transform:uppercase;letter-spacing:.05em;color:#899198;font-weight:800}
+.payment-summary-card strong{font-size:1.08rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.payment-summary-card small{font-size:.65rem;color:#747d85}
+.payment-summary-card.pix{border-color:rgba(58,185,157,.16)}
+.payment-summary-card.pix strong{color:#84dbc8}
+.payment-summary-card.card{border-color:rgba(75,126,215,.16)}
+.payment-summary-card.card strong{color:#a9c8ff}
+.payment-summary-card.cash{border-color:rgba(190,163,75,.16)}
+.payment-summary-card.cash strong{color:#dfcf91}
+
+.finance-barber-payments,.annual-month-payments,.profile-period-payments{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:9px}
+.finance-barber-payments span,.annual-month-payments span,.profile-period-payments span{display:grid;gap:3px;padding:7px 8px;border-radius:9px;background:rgba(255,255,255,.025);font-size:.60rem;color:#818991;min-width:0}
+.finance-barber-payments b,.annual-month-payments b,.profile-period-payments b{color:#e5dfd3;font-size:.68rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profile-period-payments{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.055)}
+
+@media(max-width:720px){
+  .payment-method-grid,.finance-payment-summary,.profile-payment-summary{grid-template-columns:1fr}
+  .finance-barber-payments,.annual-month-payments,.profile-period-payments{grid-template-columns:1fr}
+}
+
+
+
+/* MODELO DE BARBEARIA - CORREÇÕES GLOBAIS FRONT-END V23 */
+input:not([type="radio"]):not([type="checkbox"]),textarea,select{
+  color:#f5f1e8!important;caret-color:#e3bd68!important;background-color:#0d1012;
+}
+input::placeholder,textarea::placeholder{color:#929aa2!important;opacity:1!important}
+select option{color:#f5f1e8!important;background:#101315!important}
+input:focus,textarea:focus,select:focus{
+  color:#fff!important;border-color:rgba(224,184,91,.72)!important;
+  outline:none!important;box-shadow:0 0 0 3px rgba(214,168,79,.11)!important
+}
+input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{
+  -webkit-text-fill-color:#f5f1e8!important;-webkit-box-shadow:0 0 0 1000px #101315 inset!important
+}
+.customer-search-input>span{color:#e3bd68!important;opacity:1!important}
+#customerSearch{color:#fff!important;caret-color:#e3bd68!important}
+#customerSearch::placeholder{color:#9ca3aa!important}
+.sidebar .side-link>span{color:#d8bd77!important;opacity:1!important;text-shadow:0 0 10px rgba(214,168,79,.15)}
+.sidebar .side-link.active>span{color:#fff0bd!important}
+.booking-barber-check,.payment-method-icon,.customer-special-icon,.cash-movement-sign,.walkin-position{opacity:1!important}
+
+.booking-open-box{
+  display:grid;gap:5px;margin:14px 0;padding:14px;border-radius:13px;
+  border:1px solid rgba(70,204,122,.28);
+  background:linear-gradient(135deg,rgba(59,177,104,.10),rgba(59,177,104,.035));
+  color:#baf1cd
+}
+.booking-open-box[hidden]{display:none!important}
+.booking-open-box strong{font-size:.88rem;color:#bff4cf}
+.booking-open-box span{font-size:.75rem;color:#91cba6}
+
+.new-booking-realtime-alert{
+  position:fixed;top:18px;right:18px;z-index:100000;width:min(560px,calc(100vw - 36px));
+  display:grid;grid-template-columns:54px minmax(0,1fr) auto;align-items:center;gap:13px;
+  padding:15px;border-radius:18px;border:1px solid rgba(214,168,79,.42);
+  background:linear-gradient(135deg,#17140d,#101315 55%);color:#f6f1e7;
+  box-shadow:0 25px 70px rgba(0,0,0,.58)
+}
+.new-booking-realtime-alert[hidden]{display:none!important}
+.new-booking-alert-icon{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:rgba(214,168,79,.11);border:1px solid rgba(214,168,79,.23);font-size:1.45rem}
+.new-booking-alert-content{display:grid;gap:3px;min-width:0}
+.new-booking-alert-content>span{color:#d7b862;text-transform:uppercase;letter-spacing:.07em;font-size:.58rem;font-weight:900}
+.new-booking-alert-content strong{color:#fff5d6;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.new-booking-alert-content p{margin:0;color:#9fa6ac;font-size:.71rem}
+.new-booking-alert-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:720px){
+  .new-booking-realtime-alert{grid-template-columns:44px minmax(0,1fr);top:10px;right:10px;width:calc(100vw - 20px)}
+  .new-booking-alert-actions{grid-column:1/-1}.new-booking-alert-actions .btn{flex:1}
+}
+
+
+/* ===== ACESSO DO PROPRIETÁRIO V24 ===== */
+.owner-nav-link{
+  color:#d8bd77!important;
+  font-weight:800!important;
+}
+.owner-nav-link:hover{
+  color:#fff0bd!important;
+}
+.owner-footer-link{
+  color:#8f969d;
+  font-size:.72rem;
+  text-decoration:none;
+  transition:.2s ease;
+}
+.owner-footer-link:hover{
+  color:#d8bd77;
+}
+
+
+/* ==========================================================
+   V25 — MOBILE RESPONSIVO + EFEITOS PREMIUM LEVES
+   ========================================================== */
+
+/* ===== EVITA TEXTO SOBREPOSTO ===== */
+.form-shell,
+.form-card,
+.booking-settings-info>div,
+.booking-open-box,
+.booking-closed-box,
+.notice,
+.payment-method-card,
+.booking-barber-card,
+.customer-special-card,
+.card,
+.admin-main,
+.table-wrap{
+  min-width:0;
+}
+.booking-title,
+.subtitle,
+.notice,
+.booking-open-box strong,
+.booking-open-box span,
+.booking-closed-box strong,
+.booking-closed-box span,
+.booking-settings-info strong,
+.payment-method-card strong,
+.payment-method-card small,
+.booking-barber-info strong,
+.booking-barber-info small{
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+.notice,
+.booking-open-box,
+.booking-closed-box{
+  line-height:1.55;
+}
+.notice span,
+.notice strong{
+  white-space:normal!important;
+}
+
+/* ===== AGENDAMENTO MOBILE ===== */
+@media(max-width:900px){
+  .form-shell{
+    grid-template-columns:1fr!important;
+    gap:14px!important;
+  }
+  .form-card.sticky{
+    position:static!important;
+    top:auto!important;
+  }
+}
+@media(max-width:680px){
+  .booking-page main.container{
+    width:min(100% - 20px,1200px)!important;
+  }
+  .booking-page .form-card{
+    padding:16px!important;
+    border-radius:16px!important;
+  }
+  .booking-title{
+    font-size:clamp(1.65rem,8vw,2.2rem)!important;
+    line-height:1.05!important;
+  }
+  .booking-settings-info{
+    grid-template-columns:1fr!important;
+  }
+  .booking-settings-info>div{
+    padding:11px!important;
+  }
+  .booking-open-box,
+  .booking-closed-box,
+  .booking-client-notice,
+  .notice{
+    width:100%;
+    padding:12px!important;
+    margin:10px 0!important;
+  }
+  .booking-barber-cards{
+    grid-template-columns:1fr!important;
+  }
+  .booking-barber-card{
+    grid-template-columns:52px minmax(0,1fr) 26px!important;
+    padding:10px!important;
+  }
+  .booking-barber-card img,
+  .booking-barber-placeholder{
+    width:52px!important;
+    height:52px!important;
+    min-width:52px!important;
+  }
+  .payment-method-grid{
+    grid-template-columns:1fr!important;
+  }
+  .payment-method-card{
+    grid-template-columns:42px minmax(0,1fr) 24px!important;
+    min-height:72px!important;
+  }
+  .time-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:7px!important;
+  }
+  .time-btn{
+    min-width:0!important;
+    padding:10px 5px!important;
+    font-size:.78rem!important;
+  }
+  .form-grid{
+    grid-template-columns:1fr!important;
+  }
+  .field{
+    min-width:0!important;
+  }
+}
+@media(max-width:390px){
+  .time-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .booking-barber-card{grid-template-columns:46px minmax(0,1fr) 24px!important}
+  .booking-barber-card img,
+  .booking-barber-placeholder{
+    width:46px!important;height:46px!important;min-width:46px!important
+  }
+}
+
+/* ===== PAINEL MOBILE / TABELAS ===== */
+@media(max-width:720px){
+  .admin-main{padding-left:12px!important;padding-right:12px!important}
+  .admin-top{gap:10px!important}
+  .admin-top-actions{width:100%;display:flex;flex-wrap:wrap}
+  .admin-top-actions .btn{flex:1}
+  .table-wrap{
+    max-width:100%;
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch;
+  }
+  .admin-table,.table{min-width:760px}
+}
+
+/* ===== MOVIMENTAÇÃO DE CAIXA EM SINCRONIZAÇÃO ===== */
+.cash-movement-row.is-syncing{
+  opacity:.72;
+  border-style:dashed!important;
+  animation:jkSyncPulse 1.1s ease-in-out infinite;
+}
+
+/* ===== EFEITOS PREMIUM SEM PESAR ===== */
+.public-page .hero-copy,
+.booking-page .form-shell{
+  animation:jkReveal .55s ease both;
+}
+.public-page .hero-card{
+  animation:jkReveal .65s .08s ease both;
+}
+.public-page .service-card,
+.public-page .gallery-card,
+.about-card,
+.card,
+.booking-barber-card,
+.payment-method-card{
+  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,background-color .22s ease;
+}
+@media(hover:hover){
+  .public-page .service-card:hover,
+  .public-page .gallery-card:hover,
+  .about-card:hover,
+  .booking-barber-card:hover,
+  .payment-method-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(214,168,79,.30)!important;
+    box-shadow:0 18px 45px rgba(0,0,0,.24);
+  }
+}
+.btn{
+  position:relative;
+  overflow:hidden;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease!important;
+}
+@media(hover:hover){
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary:hover{box-shadow:0 12px 30px rgba(214,168,79,.18)}
+}
+.btn-primary:before{
+  content:"";
+  position:absolute;
+  top:-60%;
+  left:-45%;
+  width:30%;
+  height:220%;
+  transform:rotate(20deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.23),transparent);
+  transition:left .55s ease;
+  pointer-events:none;
+}
+@media(hover:hover){
+  .btn-primary:hover:before{left:125%}
+}
+.hero-logo,
+.booking-logo{
+  animation:jkFloat 5s ease-in-out infinite;
+}
+.booking-open-box{
+  box-shadow:0 0 28px rgba(61,190,112,.055),inset 0 0 20px rgba(61,190,112,.025);
+}
+.booking-closed-box{
+  box-shadow:0 0 28px rgba(226,85,85,.04),inset 0 0 20px rgba(226,85,85,.02);
+}
+
+@keyframes jkReveal{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:none}
+}
+@keyframes jkFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+}
+@keyframes jkSyncPulse{
+  0%,100%{opacity:.62}
+  50%{opacity:.9}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
+
+
+/* ===== AGENDAMENTO FORA DO HORÁRIO V26 ===== */
+.booking-closed-box span{
+  max-width:100%;
+}
+.booking-closed-box strong,
+.booking-closed-box span{
+  display:block;
+}
+
+
+/* ==========================================================
+   V28 — PENDENTE / WHATSAPP / PROTEÇÃO DO PROPRIETÁRIO
+   ========================================================== */
+.status.pendente{
+  color:#f3ca70!important;
+  background:rgba(214,168,79,.09)!important;
+  border-color:rgba(214,168,79,.24)!important;
+}
+.owner-protected-modal{
+  position:fixed;
+  inset:0;
+  z-index:200000;
+  display:grid;
+  place-items:center;
+  padding:18px;
+}
+.owner-protected-modal[hidden]{display:none!important}
+.owner-protected-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(6px);
+}
+.owner-protected-card{
+  position:relative;
+  z-index:1;
+  width:min(470px,100%);
+  padding:22px;
+  border-radius:20px;
+  border:1px solid rgba(214,168,79,.26);
+  background:linear-gradient(145deg,#17191b,#0d0f10);
+  box-shadow:0 30px 90px rgba(0,0,0,.62);
+}
+.owner-protected-card h2{margin:5px 0 7px;color:#fff5d7}
+.owner-protected-close{
+  position:absolute;right:14px;top:12px;
+  width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.03);
+  color:#e9ddc1;font-size:1.25rem;cursor:pointer;
+}
+.owner-protected-error{
+  grid-column:1/-1;
+  min-height:20px;
+  color:#ff9c9c;
+  font-size:.76rem;
+}
+.owner-protected-actions{
+  display:flex!important;
+  gap:9px;
+  justify-content:flex-end;
+}
+@media(max-width:520px){
+  .owner-protected-card{padding:18px}
+  .owner-protected-actions{flex-direction:column-reverse}
+  .owner-protected-actions .btn{width:100%}
+}
+
+
+/* ===== HISTÓRICO DO CAIXA V29 ===== */
+.cash-history-card .table th:last-child,
+.cash-history-card .table td:last-child{
+  position:sticky;
+  right:0;
+  z-index:2;
+  background:#101315;
+}
+.cash-history-card .table th:last-child{z-index:3}
+
+
+/* ==========================================================
+   V35 — USO DO SISTEMA
+   ========================================================== */
+.system-usage-section{overflow:hidden}
+.system-usage-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin-top:16px;
+}
+.system-usage-card{
+  padding:16px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;
+  background:linear-gradient(145deg,rgba(255,255,255,.028),rgba(255,255,255,.008));
+}
+.system-usage-card-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.system-usage-card-head span{
+  display:block;
+  color:#9aa1a8;
+  font-size:.76rem;
+}
+.system-usage-card-head strong{
+  display:block;
+  margin-top:5px;
+  color:#f7f1e6;
+  font-size:1.15rem;
+}
+.system-usage-percent{
+  color:#d8bd77!important;
+  font-weight:850;
+  white-space:nowrap;
+}
+.system-usage-progress{
+  height:10px;
+  margin:14px 0 9px;
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(255,255,255,.065);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.35);
+}
+.system-usage-progress-bar{
+  width:0;
+  height:100%;
+  border-radius:999px;
+  transition:width .45s ease;
+  background:linear-gradient(90deg,#5a9d74,#7cc99a);
+}
+.system-usage-progress-bar[data-level="warning"]{
+  background:linear-gradient(90deg,#bd8d35,#e6bb62);
+}
+.system-usage-progress-bar[data-level="danger"]{
+  background:linear-gradient(90deg,#a94242,#ea6c6c);
+}
+.system-usage-card small{color:#8e969c}
+.system-usage-counters{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-top:12px;
+}
+.system-usage-counters article{
+  padding:13px 15px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.018);
+}
+.system-usage-counters span{
+  display:block;
+  color:#92999f;
+  font-size:.72rem;
+}
+.system-usage-counters strong{
+  display:block;
+  margin-top:4px;
+  color:#f4e8cb;
+  font-size:1.2rem;
+}
+.system-usage-warning{
+  margin-top:12px;
+  padding:12px 14px;
+  border-radius:12px;
+  font-size:.78rem;
+  font-weight:700;
+}
+.system-usage-warning[data-level="warning"]{
+  color:#f3d28b;
+  border:1px solid rgba(218,170,76,.24);
+  background:rgba(218,170,76,.07);
+}
+.system-usage-warning[data-level="danger"]{
+  color:#ffb0b0;
+  border:1px solid rgba(226,85,85,.25);
+  background:rgba(226,85,85,.075);
+}
+@media(max-width:760px){
+  .system-usage-grid{grid-template-columns:1fr}
+  .system-usage-counters{grid-template-columns:1fr}
+}
+
+
+/* ==========================================================
+   V36 — HISTÓRICO DE CLIENTES POR BARBEIRO
+   ========================================================== */
+.barber-client-history-card{
+  margin:18px 0;
+  overflow:hidden;
+}
+.barber-history-head{
+  align-items:flex-start;
+}
+.barber-history-filters{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(160px,1fr));
+  gap:12px;
+  margin:16px 0;
+  padding:14px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:16px;
+  background:rgba(255,255,255,.015);
+}
+.barber-history-custom{
+  grid-column:span 2;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.barber-history-custom[hidden]{display:none!important}
+.barber-history-filters>.field[hidden]{display:none!important}
+
+.barber-history-kpis{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin:12px 0;
+}
+.barber-history-kpis article{
+  padding:14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.065);
+  background:linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,.008));
+}
+.barber-history-kpis span,
+.barber-history-kpis small{
+  display:block;
+  color:#939aa0;
+}
+.barber-history-kpis span{
+  font-size:.73rem;
+  text-transform:uppercase;
+  letter-spacing:.055em;
+}
+.barber-history-kpis strong{
+  display:block;
+  margin:6px 0 3px;
+  color:#f0d79b;
+  font-size:1.18rem;
+}
+.barber-history-kpis small{font-size:.66rem}
+.barber-history-label{
+  min-height:24px;
+  margin:9px 0;
+  color:#d8bd77;
+  font-size:.78rem;
+  font-weight:750;
+}
+.barber-history-table td{
+  vertical-align:middle;
+}
+@media(max-width:950px){
+  .barber-history-filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .barber-history-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:620px){
+  .barber-history-filters{grid-template-columns:1fr}
+  .barber-history-custom{
+    grid-column:auto;
+    grid-template-columns:1fr;
+  }
+  .barber-history-kpis{grid-template-columns:1fr 1fr}
+}
+
+
+/* ===== V37 GESTÃO PRO ===== */
+.dashboard-pro-head{margin-bottom:14px}.dashboard-pro-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+.dashboard-profit-kpi{border-color:rgba(108,203,142,.28)!important}.dashboard-profit-kpi strong{color:#8de0ad!important}
+.dashboard-pro-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}.dashboard-highlight{display:block;margin-top:12px;color:#f0d79b;font-size:1.15rem}
+.dashboard-quick-links{display:flex;gap:10px;flex-wrap:wrap}
+.expense-manager-card{margin:18px 0}.expense-head{align-items:flex-start}.expense-report-actions{display:flex;gap:8px;flex-wrap:wrap}
+.expense-form{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr)) auto;gap:10px;align-items:end;margin:16px 0}
+.expense-submit-field{display:flex;align-items:end}.expense-summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.expense-summary article{padding:14px;border:1px solid rgba(255,255,255,.06);border-radius:14px;background:rgba(255,255,255,.018)}
+.expense-summary span,.expense-summary small{display:block;color:#92999f}.expense-summary strong{display:block;margin-top:4px;font-size:1.2rem;color:#f4e8cb}.expense-summary .real-profit strong{color:#8de0ad}
+.noshow-mini{border-color:rgba(230,170,70,.35)!important;color:#e8c477!important}.status.nao_compareceu{color:#e8c477;background:rgba(230,170,70,.11);border-color:rgba(230,170,70,.25)}
+.loyalty-cell{min-width:120px}.loyalty-bar{height:6px;background:rgba(255,255,255,.07);border-radius:999px;overflow:hidden;margin:5px 0}.loyalty-bar span{display:block;height:100%;background:linear-gradient(90deg,#b6904d,#ead08f);border-radius:999px}.loyalty-cell small{color:#a9a097}
+.audit-log-list{display:grid;gap:8px;margin-top:12px}.audit-item{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid rgba(255,255,255,.06);border-radius:12px;background:rgba(255,255,255,.015)}.audit-item strong,.audit-item span{display:block}.audit-item span,.audit-item small{color:#92999f;font-size:.72rem}
+@media(max-width:1000px){.dashboard-pro-kpis{grid-template-columns:repeat(2,1fr)}.expense-form{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.dashboard-pro-grid,.expense-summary{grid-template-columns:1fr}.expense-form{grid-template-columns:1fr}.dashboard-pro-kpis{grid-template-columns:1fr 1fr}.audit-item{flex-direction:column}}
+@media print{.sidebar,.admin-top,.finance-filter-board,.expense-form,.expense-report-actions,.action-row{display:none!important}.admin-main{margin:0!important;padding:0!important}.card{break-inside:avoid}}
+
+
+/* ===== V40 DESPESAS — CONFIRMAÇÃO VISÍVEL ===== */
+.expense-save-status{
+  grid-column:1/-1;
+  min-height:20px;
+  padding:0 2px;
+  font-size:.78rem;
+  font-weight:700;
+}
+.expense-save-status[data-state="loading"]{color:#d8bd77}
+.expense-save-status[data-state="success"]{color:#82d6a3}
+.expense-save-status[data-state="error"]{color:#ff9c9c}
+
+
+/* ===== V41 CAIXA + DESPESAS SINCRONIZADAS ===== */
+.cash-expense-sync{
+  padding:12px 14px;
+  border:1px solid rgba(216,189,119,.16);
+  border-radius:14px;
+  background:rgba(216,189,119,.035);
+}
+.cash-expense-sync[hidden]{display:none!important}
+.cash-expense-sync-toggle{display:flex;align-items:flex-start;gap:10px;cursor:pointer}
+.cash-expense-sync-toggle input{margin-top:4px;accent-color:#d8bd77}
+.cash-expense-sync-toggle strong,.cash-expense-sync-toggle small{display:block}
+.cash-expense-sync-toggle small{margin-top:3px;color:#92999f;font-weight:500}
+.cash-expense-category{margin-top:12px}
+.cash-expense-category[hidden]{display:none!important}
+.cash-movement-save-status{min-height:18px;font-size:.78rem;font-weight:700}
+.cash-movement-save-status[data-state="loading"]{color:#d8bd77}
+.cash-movement-save-status[data-state="success"]{color:#82d6a3}
+.cash-movement-save-status[data-state="error"]{color:#ff9c9c}
+
+
+/* ===== V42 ENCAIXE — HORA ATUAL ===== */
+#walkinTime{font-variant-numeric:tabular-nums}
+.walkin-datetime input[type="time"]{min-width:130px}
+
+
+/* ===== V43 AGENDA INTELIGENTE ===== */
+.booking-smart-note{
+  grid-column:1/-1;
+  margin:10px 0 12px;
+  padding:10px 12px;
+  border:1px solid rgba(216,189,119,.16);
+  border-radius:12px;
+  background:rgba(216,189,119,.04);
+  color:#b9b3a8;
+  font-size:.78rem;
+  line-height:1.45;
+}
+
+
+/* ============================================================
+   TEMPLATE PARA REVENDA V45 — CORREÇÃO DE CONTRASTE E LAYOUT
+   Este arquivo deve ser carregado POR ÚLTIMO.
+   ============================================================ */
+:root{
+  --rev-bg:#090a0b;
+  --rev-panel:#121416;
+  --rev-text:#f7f1e7;
+  --rev-muted:#b9b3aa;
+  --rev-gold:#d0a255;
+  --rev-gold2:#f2cf86;
+}
+html,body{background-color:var(--rev-bg);color:var(--rev-text)}
+.public-page,.public-page main,.public-page section{color:var(--rev-text)}
+.public-page h1,.public-page h2,.public-page h3,.public-page h4,
+.public-page .title,.public-page strong{color:var(--rev-text)}
+.public-page p,.public-page .subtitle,.public-page .hero-copy p,
+.public-page .hero-trust,.public-page .hero-trust span,.public-page .muted{color:var(--rev-muted)!important}
+.public-page .eyebrow,.public-page .price,.public-page .gallery-overlay em{color:var(--rev-gold2)!important}
+.public-page .navlinks,.public-page .navlinks a{color:#eee8df!important}
+.public-page .navlinks a:hover{color:var(--rev-gold2)!important}
+.public-page .btn-primary{background:linear-gradient(135deg,var(--rev-gold2),#b68130)!important;color:#161009!important;border-color:transparent!important}
+.public-page .btn-primary *{color:#161009!important}
+.public-page .btn-outline{background:rgba(255,255,255,.035)!important;border:1px solid rgba(242,207,134,.46)!important;color:#f7f1e7!important;box-shadow:none!important}
+.public-page .btn-outline:hover{background:rgba(208,162,85,.12)!important;color:#fff7e8!important;border-color:var(--rev-gold2)!important}
+.public-page .hero-copy{color:var(--rev-text)!important}
+.public-page .hero-copy h1{color:#fffaf2!important;text-shadow:0 6px 35px rgba(0,0,0,.45)}
+.public-page .hero-copy h1 span{color:transparent!important;-webkit-text-stroke:1.4px var(--rev-gold2)!important}
+.public-page .hero-live-pill{color:#b7efc7!important;background:rgba(48,129,76,.09)!important}
+.public-page .hero-trust{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:18px;font-size:.88rem}
+.public-page .hero-card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012)),#101112!important}
+.public-page .hero-photo-placeholder{width:100%!important;height:100%!important;max-width:none!important;position:absolute!important;inset:0!important;object-fit:cover!important;border-radius:34px!important;filter:brightness(.72) contrast(1.05)!important;transform:none!important}
+.public-page .hero-card:after{background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.58));inset:0;width:auto;height:auto;border:0;border-radius:34px;z-index:1}
+.public-page .hero-card:before{z-index:2}
+.public-page .hero-card .badge{z-index:4;color:#fff6e6!important;background:rgba(10,11,12,.84)!important}
+.public-page .hero-card .badge strong{color:#fff8ea!important}
+.public-page .hero-card .badge span{color:#bdb5aa!important}
+.public-page .service-card,.public-page .about-card,.public-page .cta{color:var(--rev-text)!important}
+.public-page .about-card .check,.public-page .about-card .check span{color:#ded8cf!important}
+.public-page .footer,.public-page .footer a,.public-page .footer span{color:#bbb4aa!important}
+.public-page .owner-nav-link{color:#e8c879!important;font-weight:800}
+/* neutralize old decorative JK initials */
+.public-page .hero:after{content:""!important}
+/* Admin/login contrast protection */
+.admin-body,.admin-body .admin-wrap,.admin-body .main-content{color:#f4eee5}
+.login-card{color:#f5efe6!important}.login-card p{color:#aeb3b7!important}
+.login-card input{color:#f5efe6!important;background:#0b0d0f!important}
+/* Mobile */
+@media(max-width:900px){
+  .public-page .hero-grid{grid-template-columns:1fr!important;gap:30px!important;padding-top:48px!important}
+  .public-page .hero-card{min-height:380px!important}
+  .public-page .hero-copy h1{font-size:clamp(3rem,15vw,5.5rem)!important}
+  .public-page .hero-actions .btn{width:100%;min-height:50px}
+  .public-page .navlinks.open{background:rgba(9,10,11,.98)!important}
+}
+@media(max-width:560px){
+  .public-page .hero-card{min-height:310px!important;border-radius:24px!important}
+  .public-page .hero-photo-placeholder{border-radius:23px!important}
+  .public-page .hero-trust{display:grid;gap:9px}
+}
+
+/* V48 FINAL CONTRAST/LAYOUT */
+:root{--v48-bg:#090b0d;--v48-text:#f7f2e9;--v48-muted:#b9b4ac;--v48-gold:#d0a255;--v48-gold2:#f2cf86;color-scheme:dark}html,body{background:var(--v48-bg);color:var(--v48-text)}body{min-height:100vh;-webkit-font-smoothing:antialiased}img{max-width:100%}.public-page,.booking-page{color:var(--v48-text)!important}.public-page h1,.public-page h2,.public-page h3,.public-page h4,.public-page .title,.booking-page h1,.booking-page h2,.booking-page h3,.booking-page h4,.booking-page .title{color:var(--v48-text)!important}.public-page p,.public-page .subtitle,.public-page .muted,.public-page .empty,.booking-page p,.booking-page .subtitle,.booking-page .muted,.booking-page .empty{color:var(--v48-muted)!important}.public-page .btn-outline,.booking-page .btn-outline{color:#fff8ef!important;background:rgba(255,255,255,.035)!important;border-color:rgba(242,207,134,.46)!important}.public-page .btn-primary,.booking-page .btn-primary{color:#181107!important}.public-page .btn-primary *,.booking-page .btn-primary *{color:#181107!important}input,select,textarea{color:#f7f2e9!important;background:#0d1013!important;border-color:rgba(255,255,255,.14)!important}input::placeholder,textarea::placeholder{color:#7f858a!important;opacity:1}select option{background:#111418;color:#f7f2e9}label,.field label,.form-label{color:#ece6dd!important}.admin-body,.admin-body .admin-wrap,.admin-body .main-content,.admin-body .admin-main{color:var(--v48-text)!important}.admin-body h1,.admin-body h2,.admin-body h3,.admin-body h4,.admin-body .page-title,.admin-body .section-title,.admin-body .card-title{color:var(--v48-text)!important}.admin-body p,.admin-body .subtitle,.admin-body .muted,.admin-body .help,.admin-body .hint,.admin-body .empty,.admin-body .kpi-label{color:var(--v48-muted)!important}.admin-body .login-card{color:var(--v48-text)!important;background:#101317!important}.admin-body .login-card h1,.admin-body .login-card h2,.admin-body .login-card label{color:var(--v48-text)!important}.admin-body .login-card p{color:#afb5ba!important}.admin-body table{color:var(--v48-text)!important}.admin-body th{color:#ddd7cf!important}.admin-body td{color:#eee9e1!important}.admin-body .side-link{color:#cbc5bd!important}.admin-body .side-link:hover,.admin-body .side-link.active{color:#fff5e2!important}.admin-body .btn-outline,.admin-body .btn-secondary,.admin-body .ghost-btn{color:#f7f1e8!important}.admin-body .btn-primary{color:#191107!important}.admin-body .btn-primary *{color:#191107!important}.table-wrap,.admin-table-wrap,.calendar-wrap,.table-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}@media(max-width:900px){.container{width:min(94%,1120px)}.hero-grid{grid-template-columns:1fr!important}.admin-body .admin-wrap,.admin-body .main-content,.admin-body .admin-main{min-width:0;width:100%}.admin-body .form-grid,.admin-body .filters-grid,.admin-body .stats-grid,.admin-body .kpi-grid,.admin-body .finance-grid{grid-template-columns:1fr!important}}@media(max-width:600px){.btn{max-width:100%;white-space:normal;text-align:center}.admin-body input,.admin-body select,.admin-body textarea,.admin-body button{font-size:16px}.admin-body .login-card{width:min(94vw,440px);padding:24px!important}}

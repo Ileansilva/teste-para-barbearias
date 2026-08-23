@@ -1,0 +1,8 @@
+MODELO MESTRE V48
+
+BANCO: execute database/01-CRIAR-TODAS-AS-TABELAS.sql, depois 02-INSTALAR-FUNCOES-POLITICAS-STORAGE.sql e 03-VERIFICAR-O-BANCO.sql.
+LOGIN: Supabase > Authentication > Users.
+CONEXÃO: edite js/config.js com Project URL e Publishable Key.
+PERSONALIZAÇÃO: use o painel Configurações, Serviços, Barbeiros e Galeria.
+
+V48: contraste corrigido, CSS consolidado, responsividade reforçada, arquivos históricos removidos, banco V47 incluído e identidade dinâmica adicionada.

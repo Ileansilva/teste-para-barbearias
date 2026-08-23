@@ -1,0 +1,346 @@
+MODELO DE BARBEARIA — GUIA DE PERSONALIZAÇÃO PARA REVENDA
+VERSÃO DOCUMENTADA V12
+============================================================
+
+OBJETIVO
+-------
+Esta versão foi preparada para facilitar a revenda do sistema.
+Os arquivos HTML, CSS, JavaScript e SQL possuem comentários
+identificando as principais áreas do código.
+
+ESTRUTURA PRINCIPAL
+-------------------
+index.html
+  Página inicial da barbearia.
+
+agendar.html
+  Página onde o cliente faz o agendamento.
+
+admin.html
+  Visão geral do proprietário.
+
+agendamentos-admin.html
+  Gestão dos agendamentos.
+
+servicos-admin.html
+  Cadastro e edição dos serviços.
+
+barbeiros-admin.html
+  Cadastro e edição dos barbeiros.
+
+barbeiro-perfil.html
+  Relatório individual do barbeiro.
+
+financeiro-admin.html
+  Relatórios financeiros.
+
+galeria-admin.html
+  Fotos dos trabalhos realizados.
+
+configuracoes-admin.html
+  Horários, dias, bloqueios e informações da barbearia.
+
+PASTA js/
+---------
+config.js
+  TROCAR AO CRIAR UM NOVO CLIENTE.
+  Contém URL e chave pública do Supabase.
+
+supabase-client.js
+  Cria a conexão com o Supabase.
+
+app.js
+  Funcionalidades da página inicial.
+
+booking.js
+  Regras e funcionalidades do agendamento.
+
+admin.js
+  Funcionalidades do painel administrativo.
+
+PASTA css/
+----------
+style.css
+  Estilos gerais.
+
+premium-v2.css
+  Visual premium da área pública.
+
+admin.css
+admin-v2.css
+admin-v3.css
+admin-v5.css
+admin-v6.css
+admin-v7.css
+admin-v8.css
+  Camadas de estilo do painel administrativo.
+
+booking-v9.css
+  Visual do agendamento.
+
+settings-v11.css
+  Visual das configurações.
+
+COMO TROCAR A IDENTIDADE VISUAL
+-------------------------------
+1. LOGO:
+   Substitua:
+   assets/logo-barbearia.png
+
+   Mantenha o mesmo nome para não precisar alterar os HTMLs.
+
+2. FAVICON:
+   Substitua:
+   assets/favicon.png
+
+3. SUA BARBEARIA:
+   O proprietário pode trocar pela página:
+   configuracoes-admin.html
+
+4. CORES:
+   Procure nos CSS principalmente:
+   #d6a84f
+   #f0c85a
+   #f1d68c
+
+   Essas cores representam o dourado principal.
+
+5. TEXTOS DA PÁGINA INICIAL:
+   Parte dos textos vem da tabela settings do Supabase.
+   Outros textos fixos podem ser encontrados em index.html.
+
+COMO CRIAR UMA CÓPIA PARA OUTRO CLIENTE
+----------------------------------------
+1. Crie um NOVO projeto Supabase.
+2. Execute:
+   supabase/schema.sql
+3. Execute as migrations existentes na pasta supabase/.
+4. Vá em:
+   js/config.js
+5. Troque:
+   SUPABASE_URL
+   SUPABASE_ANON_KEY
+6. Troque:
+   assets/logo-barbearia.png
+   assets/favicon.png
+7. Publique o projeto em outro repositório/domínio.
+8. Crie o usuário administrador no Supabase Auth.
+9. Entre no painel e configure:
+   - nome
+   - WhatsApp
+   - Instagram
+   - endereço
+   - abertura
+   - fechamento
+   - intervalo
+   - dias de trabalho
+   - datas bloqueadas
+   - regras de agendamento
+
+O QUE NÃO PRECISA MUDAR AO REVENDER
+-----------------------------------
+Normalmente não é necessário alterar:
+- lógica do booking.js
+- lógica financeira
+- lógica de comissões
+- RPC de horários
+- estrutura dos cards
+
+Você só precisa alterar código se o novo cliente quiser
+uma funcionalidade diferente.
+
+IMPORTANTE SOBRE SUPABASE
+-------------------------
+Cada cliente deve ter seu próprio projeto Supabase se você
+quiser vender instalações separadas.
+
+Não reutilize banco de dados, usuários e credenciais da JK
+Barbearia em outro cliente.
+
+CHECKLIST DE ENTREGA PARA NOVO CLIENTE
+--------------------------------------
+[ ] Nova logo
+[ ] Novo favicon
+[ ] Novo nome
+[ ] Novo WhatsApp
+[ ] Novo Instagram
+[ ] Novo endereço
+[ ] Novos serviços
+[ ] Novos preços
+[ ] Novos barbeiros
+[ ] Novas comissões
+[ ] Horários configurados
+[ ] Dias de funcionamento configurados
+[ ] Datas bloqueadas revisadas
+[ ] Novo Supabase
+[ ] Novo administrador
+[ ] Novo domínio ou GitHub Pages
+[ ] Teste de agendamento
+[ ] Teste de financeiro
+[ ] Teste no celular
+
+============================================================
+FIM DO GUIA
+============================================================
+
+
+FINANCEIRO ANUAL V13
+--------------------
+Na página financeiro-admin.html:
+- clique no card "Faturamento anual";
+- o sistema mostra os 12 meses do ano em cards;
+- cada mês pode ser clicado para abrir seu relatório;
+- ranking anual por número de cortes;
+- ranking anual por faturamento;
+- cada barbeiro do ranking abre o perfil individual.
+
+Visual:
+css/finance-annual-v13.css
+
+Lógica:
+js/admin.js
+Procure pelo comentário:
+RELATÓRIO ANUAL: 12 MESES + RANKINGS
+
+
+FORMAS DE PAGAMENTO V14
+-----------------------
+O sistema trabalha com:
+- pix
+- cartao
+- dinheiro
+
+Banco:
+bookings.payment_method
+
+Cliente:
+agendar.html
+js/booking.js
+
+Administração:
+agendamentos-admin.html
+O proprietário pode corrigir a forma de pagamento.
+
+Financeiro:
+financeiro-admin.html
+Mostra totais recebidos em Pix, Cartão e Dinheiro.
+
+Barbeiro:
+barbeiro-perfil.html
+Mostra quanto os cortes do profissional geraram em cada forma.
+
+CSS:
+css/payment-v14.css
+
+
+ATUALIZAÇÃO FINAL V15 — HORÁRIO DE FECHAMENTO
+---------------------------------------------
+A regra do agendamento foi consolidada para interpretar:
+
+- ABERTURA = primeiro horário que pode ser escolhido.
+- FECHAMENTO = último horário que pode ser escolhido.
+
+Exemplo:
+Abertura: 08:00
+Fechamento: 19:00
+Intervalo: 30 minutos
+
+Horários gerados:
+08:00, 08:30, 09:00 ... 18:30, 19:00.
+
+A duração do serviço continua sendo usada para detectar conflito
+com outros agendamentos do mesmo barbeiro.
+
+Arquivo de referência:
+supabase/booking_closing_time_fix_v15.sql
+
+Na SUA BARBEARIA atual essa alteração já foi aplicada no Supabase.
+Ao revender/criar outro banco, execute também essa migration.
+
+
+CRM DE CLIENTES V16
+-------------------
+Página:
+clientes-admin.html
+
+Banco:
+public.jk_customers
+
+Ligação com agendamentos:
+bookings.jk_customer_id
+
+COMO FUNCIONA:
+- Ao agendar, o telefone é procurado em jk_customers.
+- Se o cliente existir, o agendamento é ligado ao cadastro.
+- Se não existir, um cadastro básico é criado automaticamente.
+- O proprietário pode completar data de nascimento e observações.
+
+ANIVERSARIANTES:
+O sistema compara mês/dia de birth_date com a data atual.
+O botão WhatsApp abre uma mensagem pronta.
+
+CLIENTES SEM RETORNO:
+O sistema considera apenas agendamentos com status "concluido".
+O proprietário escolhe o limite em dias (20, 30, 45, 60 ou outro).
+
+MENSAGENS:
+Use {nome} no texto de aniversário.
+Use {nome} e {dias} no texto de recuperação.
+
+Arquivos:
+clientes-admin.html
+js/customers.js
+css/customers-v16.css
+supabase/customers_crm_v16.sql
+
+
+CAIXA E ENCAIXES V17
+---------------------
+PÁGINA CAIXA:
+caixa-admin.html
+js/cash.js
+css/cash-v17.css
+
+BANCO:
+cash_registers
+cash_movements
+
+FUNCIONAMENTO:
+- abra o caixa com o valor inicial;
+- cortes concluídos durante o caixa entram automaticamente;
+- Pix e Cartão contam como vendas;
+- somente Dinheiro entra no cálculo do dinheiro físico;
+- Entrada e Suprimento aumentam o caixa físico;
+- Saída e Sangria reduzem o caixa físico;
+- ao fechar, informe o dinheiro contado;
+- se houver diferença, o sistema exige observação.
+
+ENCAIXES / CLIENTE PRESENCIAL:
+agendamentos-admin.html
+js/walkins.js
+css/walkins-v17.css
+
+FILA:
+O cliente aguarda sem ocupar um horário público.
+Ao clicar em Iniciar, é criado um atendimento no horário real.
+
+ENCAIXE:
+O proprietário informa manualmente a data e horário.
+Pode usar horário após o fechamento da agenda pública.
+Ainda é impedido conflito com outro atendimento do barbeiro.
+
+ORIGEM DO ATENDIMENTO:
+online = agendado pelo site
+encaixe = criado manualmente pelo proprietário
+presencial = iniciado pela fila
+
+
+EXCLUSÃO PROTEGIDA DE CAIXA V18
+-------------------------------
+- Somente caixa fechado pode ser excluído.
+- Ao clicar em Excluir, o sistema pede e-mail e senha.
+- O e-mail precisa ser o mesmo usuário logado no painel.
+- A senha é validada novamente pelo Supabase Auth.
+- Os atendimentos não são apagados.
+- O vínculo cash_register_id dos atendimentos é removido.
+- As movimentações manuais daquele caixa são removidas.

@@ -1,0 +1,11 @@
+{
+  "name": "Sistema Premium para Barbearia",
+  "short_name": "Barbearia",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b0d0e",
+  "theme_color": "#d0a255",
+  "icons": [
+    {"src":"assets/favicon.png","sizes":"512x512","type":"image/png"}
+  ]
+}

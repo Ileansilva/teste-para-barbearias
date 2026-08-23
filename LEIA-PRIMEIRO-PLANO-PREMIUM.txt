@@ -1,0 +1,25 @@
+PLANO PREMIUM
+========================================================
+INCLUI TUDO DO PROFISSIONAL, MAIS:
+- estrutura PWA instalável no celular
+- manifest + service worker
+- metadados para compartilhamento/SEO
+- seção de diferenciais
+- seção de avaliações/depoimentos
+- área de contato/localização
+- espaço para Google Maps
+- acabamento comercial premium
+
+ARQUIVOS EXTRAS:
+- manifest.webmanifest
+- sw.js
+- css/premium-extras.css
+- js/premium.js
+
+PERSONALIZAÇÃO PREMIUM:
+No index.html procure:
+[NOME DO CLIENTE]
+[COLE AQUI O LINK OU IFRAME DO GOOGLE MAPS DO CLIENTE]
+
+A configuração do Supabase continua em js/config.js.
+========================================================

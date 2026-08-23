@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <!-- ===== CABEÇALHO / CONFIGURAÇÕES DA PÁGINA ===== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Financeiro | SUA BARBEARIA</title>
+  <link rel="icon" href="/assets2/ChatGPT Image 23 de ago. de 2026, 15_02_06 (4).png">
+  <link rel="stylesheet" href="css/financeiro-admin-v48.css">
+</head><!-- NOVA BARBEARIA: banco em js/config.js | dados em Painel > Configurações | imagens em assets/ -->
+
+<body class="admin-body admin-multipage" data-admin-page="finance">
+  <!-- ===== INÍCIO DO CONTEÚDO VISÍVEL ===== -->
+  <div class="admin-ambient" aria-hidden="true"></div><!-- ===== LOGIN DO PROPRIETÁRIO ===== -->
+  <div id="loginOverlay" class="login-overlay">
+    <form id="loginForm" class="login-card"><img src="/assets2/ChatGPT Image 23 de ago. de 2026, 15_02_06 (2).png" alt="Logo SUA BARBEARIA">
+      <h1>Área do proprietário</h1>
+      <p>Acesse a administração da SUA BARBEARIA.</p>
+      <div class="field"><label>E-mail</label><input name="email" type="email" required></div>
+      <div class="field" style="margin-top:12px"><label>Senha</label><input name="password" type="password" required></div>
+      <div id="loginError" style="color:#ff9c9c;margin-top:9px"></div><button class="btn btn-primary" type="submit">Entrar</button>
+    </form>
+  </div><!-- ===== ESTRUTURA PRINCIPAL DO PAINEL ADMIN ===== -->
+  <div class="admin-wrap"><!-- ===== MENU LATERAL DO ADMINISTRADOR ===== -->
+    <aside class="sidebar"><a class="admin-sidebar-logo" href="admin.html"><img src="/assets2/ChatGPT Image 23 de ago. de 2026, 15_02_06 (2).png" alt="BARBEARIA CORTE NOBRE"></a>
+      <nav class="side-nav side-nav-links"><a class="side-link " href="admin.html"><span>⌂</span>Visão geral</a><a class="side-link " href="agendamentos-admin.html"><span>▣</span>Agendamentos</a><a class="side-link " href="clientes-admin.html"><span>♧</span>Clientes</a><a class="side-link " href="servicos-admin.html"><span>✂</span>Serviços</a><a class="side-link " href="barbeiros-admin.html"><span>♙</span>Barbeiros</a><a class="side-link active" href="financeiro-admin.html"><span>$</span>Financeiro</a><a class="side-link " href="caixa-admin.html"><span>▤</span>Caixa</a><a class="side-link " href="galeria-admin.html"><span>▧</span>Galeria</a><a class="side-link " href="configuracoes-admin.html"><span>⚙</span>Configurações</a></nav>
+      <div class="sidebar-bottom"><a class="side-link" href="index.html"><span>↗</span>Ver site</a><button id="logout" class="side-link side-button"><span>⇥</span>Sair</button></div>
+    </aside><!-- ===== CONTEÚDO PRINCIPAL ===== -->
+    <!-- ===== CONTEÚDO DA PÁGINA ADMINISTRATIVA ===== -->
+    <main class="admin-main">
+      <div class="admin-top">
+        <div class="admin-page-heading"><span class="eyebrow">Painel administrativo</span>
+          <h1>Financeiro</h1>
+        </div>
+        <div class="admin-top-actions"><a class="btn btn-outline" href="index.html">Ver site</a></div>
+      </div><!-- ===== CONTROLE FINANCEIRO ===== -->
+      <section id="finance" class="panel active">
+        <div class="finance-hero finance-hero-v5">
+          <div class="finance-hero-copy">
+            <span class="eyebrow">Controle financeiro</span>
+            <h2>Financeiro da barbearia</h2>
+            <p class="muted">Somente cortes marcados como <strong>Concluído</strong> entram nos cálculos.</p>
+          </div>
+          <div class="finance-hero-side">
+            <div class="finance-filter finance-filter-inline">
+              <label for="financeBarberSelect">Ver barbeiro</label>
+              <select id="financeBarberSelect">
+                <option value="">Todos os barbeiros</option>
+              </select>
+            </div>
+            <div class="finance-hero-badge-v5" aria-hidden="true"><span>↗</span></div>
+          </div>
+        </div>
+
+        <div class="finance-filter-board">
+          <div class="finance-filter-card finance-filter-card-main">
+            <span class="finance-filter-icon">📅</span>
+            <div>
+              <label>Data específica</label>
+              <input id="financeDateFilter" type="date" aria-label="Data específica">
+            </div>
+            <button id="financeTodayFilterBtn" type="button" class="filter-action">Hoje</button>
+            <button id="financeClearDateBtn" type="button" class="filter-action muted-action">Limpar</button>
+          </div>
+
+          <div class="finance-filter-card">
+            <span class="finance-filter-icon">🗓️</span>
+            <div>
+              <label>Mês</label>
+              <input id="financeMonthFilter" type="month" aria-label="Mês">
+            </div>
+          </div>
+
+          <div class="finance-filter-card">
+            <span class="finance-filter-icon">📈</span>
+            <div>
+              <label>Ano</label>
+              <select id="financeYearFilter"></select>
+            </div>
+          </div>
+
+          <div class="finance-filter-card">
+            <span class="finance-filter-icon">⏳</span>
+            <div>
+              <label>Período</label>
+              <select id="financePeriodFilter">
+                <option value="year">Ano inteiro</option>
+                <option value="semester1">1º semestre — Jan a Jun</option>
+                <option value="semester2">2º semestre — Jul a Dez</option>
+                <option value="quarter1">1º trimestre — Jan a Mar</option>
+                <option value="quarter2">2º trimestre — Abr a Jun</option>
+                <option value="quarter3">3º trimestre — Jul a Set</option>
+                <option value="quarter4">4º trimestre — Out a Dez</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="finance-period-grid finance-period-grid-4">
+          <article class="finance-period-card">
+            <div class="finance-period-head"><span>Hoje</span><strong id="finTodayCuts">0 cortes</strong></div>
+            <div class="finance-values">
+              <div><small>Faturamento</small><b id="finTodayGross">R$ 0,00</b></div>
+              <div><small>Comissões</small><b id="finTodayCommission">R$ 0,00</b></div>
+              <div><small>Líquido da casa</small><b id="finTodayNet">R$ 0,00</b></div>
+            </div>
+          </article>
+          <article class="finance-period-card">
+            <div class="finance-period-head"><span>Esta semana</span><strong id="finWeekCuts">0 cortes</strong></div>
+            <div class="finance-values">
+              <div><small>Faturamento</small><b id="finWeekGross">R$ 0,00</b></div>
+              <div><small>Comissões</small><b id="finWeekCommission">R$ 0,00</b></div>
+              <div><small>Líquido da casa</small><b id="finWeekNet">R$ 0,00</b></div>
+            </div>
+          </article>
+          <article class="finance-period-card">
+            <div class="finance-period-head"><span>Este mês</span><strong id="finMonthCuts">0 cortes</strong></div>
+            <div class="finance-values">
+              <div><small>Faturamento</small><b id="finMonthGross">R$ 0,00</b></div>
+              <div><small>Comissões</small><b id="finMonthCommission">R$ 0,00</b></div>
+              <div><small>Líquido da casa</small><b id="finMonthNet">R$ 0,00</b></div>
+            </div>
+          </article>
+          <article id="financeAnnualShortcut" class="finance-period-card finance-period-card-clickable" role="button" tabindex="0" title="Abrir relatório anual detalhado">
+            <div class="finance-period-head"><span>Faturamento anual</span><strong id="finYearCuts">0 cortes</strong></div>
+            <div class="finance-values">
+              <div><small>Faturamento</small><b id="finYearGross">R$ 0,00</b></div>
+              <div><small>Comissões</small><b id="finYearCommission">R$ 0,00</b></div>
+              <div><small>Líquido da casa</small><b id="finYearNet">R$ 0,00</b></div>
+            </div>
+          </article>
+        </div>
+
+        <section id="expensesManager" class="card expense-manager-card">
+          <div class="card-head expense-head">
+            <div><span class="eyebrow">Lucro real</span>
+              <h2>Despesas da barbearia</h2>
+              <p class="muted">Registre aluguel, água, energia, produtos, manutenção e outras despesas.</p>
+            </div>
+            <div class="expense-report-actions"><button id="exportFinanceCsvBtn" class="btn btn-outline" type="button">Exportar Excel/CSV</button><button id="printFinanceReportBtn" class="btn btn-outline" type="button">Imprimir / PDF</button></div>
+          </div>
+          <form id="expenseForm" class="expense-form">
+            <div class="field"><label>Data</label><input id="expenseDate" type="date" required></div>
+            <div class="field"><label>Categoria</label><select id="expenseCategory">
+                <option value="aluguel">Aluguel</option>
+                <option value="agua">Água</option>
+                <option value="energia">Energia</option>
+                <option value="produtos">Produtos</option>
+                <option value="manutencao">Manutenção</option>
+                <option value="salarios">Salários</option>
+                <option value="marketing">Marketing</option>
+                <option value="impostos">Impostos</option>
+                <option value="outros" selected>Outros</option>
+              </select></div>
+            <div class="field"><label>Descrição</label><input id="expenseDescription" maxlength="160" required placeholder="Ex.: Conta de energia"></div>
+            <div class="field"><label>Valor</label><input id="expenseAmount" type="number" min="0" step="0.01" required></div>
+            <div class="field"><label>Pagamento</label><select id="expensePayment">
+                <option value="pix">Pix</option>
+                <option value="cartao">Cartão</option>
+                <option value="dinheiro">Dinheiro</option>
+                <option value="boleto">Boleto</option>
+                <option value="transferencia">Transferência</option>
+                <option value="outros">Outros</option>
+              </select></div>
+            <div class="field expense-submit-field"><button class="btn btn-primary" type="submit">Adicionar despesa</button></div>
+            <div id="expenseSaveStatus" class="expense-save-status" aria-live="polite"></div>
+          </form>
+          <div class="expense-summary">
+            <article><span>Despesas do mês</span><strong id="expenseMonthTotal">R$ 0,00</strong></article>
+            <article class="real-profit"><span>Lucro líquido do mês</span><strong id="financeRealProfit">R$ 0,00</strong><small>Faturamento − comissões − despesas</small></article>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Categoria</th>
+                  <th>Descrição</th>
+                  <th>Pagamento</th>
+                  <th>Valor</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="expenseRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <div class="card finance-custom-result-card">
+          <div class="card-head">
+            <div>
+              <span class="eyebrow">Consulta personalizada</span>
+              <h2 id="financeCustomTitle">Ano atual</h2>
+            </div>
+          </div>
+          <div class="finance-custom-kpis">
+            <div><span>Cortes</span><strong id="financeCustomCuts">0</strong></div>
+            <div><span>Faturamento</span><strong id="financeCustomGross">R$ 0,00</strong></div>
+            <div><span>Comissões</span><strong id="financeCustomCommission">R$ 0,00</strong></div>
+            <div><span>Lucro/Líquido da casa</span><strong id="financeCustomNet">R$ 0,00</strong></div>
+          </div>
+          <!-- ===== RECEBIMENTOS POR FORMA DE PAGAMENTO ===== -->
+          <div class="finance-payment-summary">
+            <div class="payment-summary-card pix"><span>Pix</span><strong id="financeCustomPix">R$ 0,00</strong><small id="financeCustomPixCuts">0 cortes</small></div>
+            <div class="payment-summary-card card"><span>Cartão</span><strong id="financeCustomCartao">R$ 0,00</strong><small id="financeCustomCartaoCuts">0 cortes</small></div>
+            <div class="payment-summary-card cash"><span>Dinheiro</span><strong id="financeCustomDinheiro">R$ 0,00</strong><small id="financeCustomDinheiroCuts">0 cortes</small></div>
+          </div>
+        </div>
+
+        <div id="financeWeeksCard" class="card">
+          <div class="card-head">
+            <div>
+              <h2 id="financeWeeksTitle">Faturamento por semana do mês</h2>
+              <p class="muted" style="margin:.35rem 0 0">Ao escolher um mês, o sistema divide automaticamente o resultado pelas semanas daquele mês.</p>
+            </div>
+          </div>
+          <div id="financeWeeksGrid" class="finance-weeks-grid"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <h2 id="financeDetailTitle">Barbeiros — mês atual</h2>
+              <p class="muted" style="margin:.35rem 0 0">Clique em qualquer profissional para abrir o perfil individual completo.</p>
+            </div>
+          </div>
+          <div id="financeBarberCards" class="finance-barber-grid"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <h2 id="financeTableTitle">Cortes concluídos</h2>
+              <p class="muted" style="margin:.35rem 0 0">Valor do corte, porcentagem, comissão e valor que ficou para a barbearia.</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="table finance-table">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Barbeiro</th>
+                  <th>Serviço</th>
+                  <th>Pagamento</th>
+                  <th>Valor</th>
+                  <th>%</th>
+                  <th>Comissão</th>
+                  <th>Casa</th>
+                </tr>
+              </thead>
+              <tbody id="financeRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+
+        <!-- ===== RELATÓRIO ANUAL EXECUTIVO ===== -->
+        <section id="financeAnnualDashboard" class="finance-annual-dashboard" hidden>
+          <div class="card finance-annual-head">
+            <div>
+              <span class="eyebrow">Visão executiva anual</span>
+              <h2 id="financeAnnualTitle">Faturamento anual</h2>
+              <p class="muted">Clique em qualquer mês para abrir o relatório completo daquele período.</p>
+            </div>
+            <div class="finance-annual-total">
+              <span>Faturamento do ano</span>
+              <strong id="financeAnnualGross">R$ 0,00</strong>
+              <small id="financeAnnualCuts">0 cortes concluídos</small>
+            </div>
+          </div>
+
+          <div class="card finance-annual-payments-card">
+            <div class="card-head">
+              <div><span class="eyebrow">Recebimentos do ano</span>
+                <h2>Formas de pagamento</h2>
+                <p class="muted">Somente cortes concluídos entram nestes totais.</p>
+              </div>
+            </div>
+            <div class="finance-payment-summary">
+              <div class="payment-summary-card pix"><span>Pix</span><strong id="financeAnnualPix">R$ 0,00</strong><small id="financeAnnualPixCuts">0 cortes</small></div>
+              <div class="payment-summary-card card"><span>Cartão</span><strong id="financeAnnualCartao">R$ 0,00</strong><small id="financeAnnualCartaoCuts">0 cortes</small></div>
+              <div class="payment-summary-card cash"><span>Dinheiro</span><strong id="financeAnnualDinheiro">R$ 0,00</strong><small id="financeAnnualDinheiroCuts">0 cortes</small></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <span class="eyebrow">Janeiro a dezembro</span>
+                <h2>Desempenho mensal</h2>
+                <p class="muted">Os 12 meses aparecem mesmo quando não houve faturamento.</p>
+              </div>
+            </div>
+            <div id="financeAnnualMonthsGrid" class="finance-annual-months-grid"></div>
+          </div>
+
+          <div class="finance-annual-rankings">
+            <div class="card finance-ranking-card">
+              <div class="card-head">
+                <div>
+                  <span class="eyebrow">Ranking anual</span>
+                  <h2>Mais cortes</h2>
+                  <p class="muted">Profissionais com maior número de atendimentos concluídos.</p>
+                </div>
+              </div>
+              <div id="financeAnnualCutsRanking" class="finance-ranking-list"></div>
+            </div>
+
+            <div class="card finance-ranking-card">
+              <div class="card-head">
+                <div>
+                  <span class="eyebrow">Ranking anual</span>
+                  <h2>Maior faturamento</h2>
+                  <p class="muted">Profissionais que mais geraram faturamento para a barbearia.</p>
+                </div>
+              </div>
+              <div id="financeAnnualGrossRanking" class="finance-ranking-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="card finance-report-detail">
+          <div class="card-head">
+            <div><span class="eyebrow">Relatório do período</span>
+              <h2 id="financeReportTitle">Detalhamento</h2>
+              <p class="muted">Resumo completo do período selecionado.</p>
+            </div>
+          </div>
+          <div id="financePeriodMonthlyGrid" class="finance-monthly-report-grid"></div>
+          <div class="finance-report-table-wrap">
+            <h3>Desempenho por barbeiro</h3>
+            <div class="table-wrap">
+              <table class="table finance-report-table">
+                <thead>
+                  <tr>
+                    <th>Barbeiro</th>
+                    <th>Cortes</th>
+                    <th>Faturamento</th>
+                    <th>Comissão</th>
+                    <th>Líquido da casa</th>
+                  </tr>
+                </thead>
+                <tbody id="financePeriodBarberRows"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div><!-- ===== SCRIPTS / FUNCIONALIDADES ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/branding-v48.js"></script>
+  <script src="js/admin.js?v=40"></script>
+</body>
+
+</html>

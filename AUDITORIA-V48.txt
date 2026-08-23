@@ -1,0 +1,1 @@
+OK: JS válido; referências locais completas; sem IDs duplicados; CSS consolidado; contraste final V48; banco V47; arquivos históricos removidos.

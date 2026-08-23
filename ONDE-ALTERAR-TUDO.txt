@@ -1,0 +1,38 @@
+============================================================
+MODELO PARA NOVA BARBEARIA — MAPA DE ALTERAÇÕES
+============================================================
+
+1. BANCO NOVO
+   Arquivo: js/config.js
+   Cole Project URL + Publishable Key do novo Supabase.
+
+2. NOME / WHATSAPP / INSTAGRAM / ENDEREÇO
+   Preferencial: Painel Admin > Configurações
+   Mapa de referência: js/customizacao.js
+
+3. LOGO / FAVICON / FOTO PRINCIPAL
+   Pasta: assets/
+   Leia: assets/README-IMAGENS.txt
+
+4. SERVIÇOS / PREÇOS / DURAÇÃO / FOTO
+   Painel Admin > Serviços
+
+5. BARBEIROS / COMISSÃO / FOTO
+   Painel Admin > Barbeiros
+
+6. GALERIA
+   Painel Admin > Galeria
+
+7. HORÁRIOS / INTERVALOS / DIAS
+   Painel Admin > Configurações
+
+8. LOGIN DO PROPRIETÁRIO
+   Supabase > Authentication > Users
+
+9. PUBLICAÇÃO
+   GitHub Pages, Vercel, Netlify ou domínio próprio.
+
+IMPORTANTE:
+Identificadores internos como window.JK e JK.money podem permanecer.
+Eles são nomes técnicos do sistema e não aparecem como nome da empresa.
+============================================================
